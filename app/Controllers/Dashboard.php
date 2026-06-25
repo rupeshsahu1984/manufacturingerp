@@ -24,7 +24,7 @@ class Dashboard extends BaseController
         // Check if user is logged in
         if (!session()->get('logged_in') || !session()->get('user_id')) {
             session()->setFlashdata('error', 'Your session has expired. Please login again.');
-            return redirect()->to('/manufacturingerp/login');
+            return redirect()->to(base_url('login'));
         }
 
         $data = [

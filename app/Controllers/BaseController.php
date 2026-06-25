@@ -58,7 +58,7 @@ abstract class BaseController extends Controller
             if (!$session->get('logged_in') || !$session->get('user_id')) {
                 // Set flash message and redirect to login
                 $session->setFlashdata('error', 'Your session has expired. Please login again.');
-                $response->redirect('/manufacturingerp/login')->send();
+                $response->redirect(base_url('login'))->send();
                 exit;
             }
         }

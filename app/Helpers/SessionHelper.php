@@ -10,7 +10,7 @@ if (!function_exists('check_session')) {
             $session->setFlashdata('error', 'Your session has expired. Please login again.');
             
             // Redirect to login page
-            return redirect()->to('/manufacturingerp/login');
+            return redirect()->to(base_url('login'));
         }
         
         return true;
