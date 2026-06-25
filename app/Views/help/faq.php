@@ -1,0 +1,1 @@
+<?= view('shared/module_page', ['title' => $title ?? 'FAQ', 'page_title' => $page_title ?? 'Frequently Asked Questions', 'message' => 'Frequently asked questions are available from this section.']) ?>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Search Test</title>
+    <style>
+        .search-results {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .search-result-item {
+            padding: 8px 12px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-result-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .product-search {
+            cursor: pointer;
+        }
+
+        .product-search:focus {
+            cursor: text;
+        }
+
+        .position-relative {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Search Test</h1>
+    
+    <div class="position-relative">
+        <input type="text" class="form-control product-search" name="items[0][product_name]" placeholder="Click to search product" readonly>
+        <input type="hidden" class="product-id" name="items[0][product_id]" value="">
+        <div class="search-results" id="searchResults_0" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; border-radius: 4px; max-height: 200px; overflow-y: auto; z-index: 1000;"></div>
+    </div>
+
+    <script>
+        // Mock products data for testing
+        const products = [
+            { id: 1, product_code: 'P001', product_name: 'Product A', available_stock: 100 },
+            { id: 2, product_code: 'P002', product_name: 'Product B', available_stock: 50 },
+            { id: 3, product_code: 'P003', product_name: 'Product C', available_stock: 75 },
+            { id: 4, product_code: 'P004', product_name: 'Product D', available_stock: 25 }
+        ];
+
+        // Show product search for specific row
+        function showProductSearch(index, searchResultsContainer, productSearchInput, productIdInput) {
+            // Create search input
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.className = 'form-control form-control-sm';
+            searchInput.placeholder = 'Search products...';
+            searchInput.style.width = '100%';
+            searchInput.style.border = 'none';
+            searchInput.style.borderBottom = '1px solid #ddd';
+            searchInput.style.borderRadius = '0';
+            
+            // Add search input to results div
+            searchResultsContainer.innerHTML = '';
+            searchResultsContainer.appendChild(searchInput);
+            searchResultsContainer.style.display = 'block';
+            
+            // Focus on search input
+            searchInput.focus();
+            
+            // Handle search input
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                if (searchTerm.length < 2) {
+                    searchResultsContainer.innerHTML = '';
+                    searchResultsContainer.appendChild(searchInput);
+                    return;
+                }
+                
+                const filteredProducts = products.filter(product => 
+                    product.product_name.toLowerCase().includes(searchTerm) ||
+                    product.product_code.toLowerCase().includes(searchTerm)
+                );
+                
+                displayProductResults(filteredProducts, searchResultsContainer, index, productSearchInput, productIdInput);
+            });
+        }
+
+        // Display product search results
+        function displayProductResults(products, container, index, productSearchInput, productIdInput) {
+            container.innerHTML = '';
+            
+            if (products.length === 0) {
+                container.innerHTML = '<div class="p-2 text-muted">No products found</div>';
+                return;
+            }
+            
+            products.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'p-2 border-bottom search-result-item';
+                productDiv.style.cursor = 'pointer';
+                productDiv.innerHTML = `
+                    <div><strong>${product.product_name}</strong></div>
+                    <small class="text-muted">${product.product_code} - Stock: ${product.available_stock || 0}</small>
+                `;
+                
+                productDiv.addEventListener('click', function() {
+                    selectProduct(product, index, productSearchInput, productIdInput);
+                });
+                
+                container.appendChild(productDiv);
+            });
+        }
+
+        // Select product from search results
+        function selectProduct(product, index, productSearchInput, productIdInput) {
+            productSearchInput.value = `${product.product_code} - ${product.product_name}`;
+            productIdInput.value = product.id;
+            
+            // Hide search results
+            productSearchInput.closest('.position-relative').querySelector('.search-results').style.display = 'none';
+            
+            console.log('Product selected:', product);
+            console.log('Product ID set to:', productIdInput.value);
+            console.log('Product name set to:', productSearchInput.value);
+        }
+
+        // Set up the search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const productSearchInput = document.querySelector('.product-search');
+            const productIdInput = document.querySelector('.product-id');
+            const searchResultsContainer = document.querySelector('.search-results');
+            
+            // Add click event to show search results
+            productSearchInput.addEventListener('click', function() {
+                showProductSearch(0, searchResultsContainer, productSearchInput, productIdInput);
+            });
+            
+            // Hide search results when clicking outside
+            productSearchInput.addEventListener('blur', function() {
+                setTimeout(() => {
+                    searchResultsContainer.style.display = 'none';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

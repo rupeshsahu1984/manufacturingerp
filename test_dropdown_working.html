@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Dropdown Working</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>🎯 Test Dropdown Functionality</h1>
+        <p class="text-success">This page tests if your dropdown is working with the API</p>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Product Selection Test</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Select Product:</label>
+                            <select class="form-select product-select" id="testDropdown">
+                                <option value="">Select Finished Product</option>
+                            </select>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Product Name:</label>
+                                    <input type="text" class="form-control" id="productName" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Price:</label>
+                                    <input type="number" class="form-control" id="price" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">CGST %:</label>
+                                    <input type="number" class="form-control" id="cgst" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">SGST %:</label>
+                                    <input type="number" class="form-control" id="sgst" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">IGST %:</label>
+                                    <input type="number" class="form-control" id="igst" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>API Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="apiStatus">Loading...</div>
+                        <div id="productCount" class="mt-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h4>Instructions:</h4>
+            <ol>
+                <li>If you see products in the dropdown above, your API is working!</li>
+                <li>Select a product to see auto-filling in action</li>
+                <li>If the dropdown is empty, there's an issue with the API</li>
+            </ol>
+            
+            <h4>Next Steps:</h4>
+            <ul>
+                <li>✅ <strong>Database has products</strong> - Confirmed!</li>
+                <li>✅ <strong>API endpoint exists</strong> - Confirmed!</li>
+                <li>✅ <strong>Controller method exists</strong> - Confirmed!</li>
+                <li>✅ <strong>Model method exists</strong> - Confirmed!</li>
+                <li>🔄 <strong>Frontend dropdown</strong> - Testing now...</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let finishedProducts = [];
+        
+        // Load products when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFinishedProducts();
+        });
+        
+        // Load finished products from API
+        function loadFinishedProducts() {
+            const statusDiv = document.getElementById('apiStatus');
+            statusDiv.innerHTML = '🔄 Loading products...';
+            
+            fetch('product/finished-goods-dropdown')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        finishedProducts = data.products;
+                        statusDiv.innerHTML = '✅ API working! Products loaded successfully';
+                        document.getElementById('productCount').innerHTML = `Found ${finishedProducts.length} products`;
+                        populateDropdown();
+                    } else {
+                        statusDiv.innerHTML = '❌ API returned error: ' + (data.message || 'Unknown error');
+                        loadFallbackData();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading products:', error);
+                    statusDiv.innerHTML = '❌ API call failed: ' + error.message;
+                    loadFallbackData();
+                });
+        }
+        
+        // Load fallback data if API fails
+        function loadFallbackData() {
+            console.log('Loading fallback data...');
+            finishedProducts = [
+                { id: 1, product_code: 'FG001', product_name: 'Premium Widget A', selling_price: 150, cgst_rate: 9, sgst_rate: 9, igst_rate: 18 },
+                { id: 2, product_code: 'FG002', product_name: 'Standard Widget B', selling_price: 100, cgst_rate: 9, sgst_rate: 9, igst_rate: 18 },
+                { id: 3, product_code: 'FG003', product_name: 'Economy Widget C', selling_price: 75, cgst_rate: 6, sgst_rate: 6, igst_rate: 12 }
+            ];
+            populateDropdown();
+        }
+        
+        // Populate the dropdown
+        function populateDropdown() {
+            const dropdown = document.getElementById('testDropdown');
+            dropdown.innerHTML = '<option value="">Select Finished Product</option>';
+            
+            if (finishedProducts) {
+                finishedProducts.forEach(product => {
+                    const option = document.createElement('option');
+                    option.value = product.id;
+                    option.textContent = `${product.product_code} - ${product.product_name}`;
+                    option.setAttribute('data-product', JSON.stringify(product));
+                    dropdown.appendChild(option);
+                });
+            }
+        }
+        
+        // Handle product selection
+        document.getElementById('testDropdown').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            
+            if (!this.value) {
+                // Clear fields if no product selected
+                clearFields();
+                return;
+            }
+            
+            // Get product data
+            const productData = JSON.parse(selectedOption.getAttribute('data-product'));
+            
+            // Fill the fields
+            document.getElementById('productName').value = productData.product_name;
+            document.getElementById('price').value = productData.selling_price || 0;
+            document.getElementById('cgst').value = productData.cgst_rate || 0;
+            document.getElementById('sgst').value = productData.sgst_rate || 0;
+            document.getElementById('igst').value = productData.igst_rate || 0;
+        });
+        
+        // Clear all fields
+        function clearFields() {
+            document.getElementById('productName').value = '';
+            document.getElementById('price').value = '';
+            document.getElementById('cgst').value = '';
+            document.getElementById('sgst').value = '';
+            document.getElementById('igst').value = '';
+        }
+    </script>
+</body>
+</html>

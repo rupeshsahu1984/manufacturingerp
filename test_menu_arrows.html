@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Arrows Fix Test - ProDX ERP</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link href="public/css/main.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h2>Menu Arrows and Top Navigation Fix Test</h2>
+        
+        <!-- Test Top Navigation -->
+        <div class="test-section">
+            <h4>Top Navigation Menu (Fixed):</h4>
+            <nav class="navbar navbar-expand-lg top-nav">
+                <div class="container-fluid">
+                    <!-- Logo and Brand -->
+                    <div class="navbar-brand d-flex align-items-center">
+                        <img src="public/images/logo-text.svg" alt="ProDX ERP" class="logo-img me-3" onerror="this.src='public/images/logo.svg'">
+                        <span class="brand-text d-none d-md-inline">ProDX ERP System</span>
+                    </div>
+                    
+                    <!-- Navigation Links -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-home"></i>
+                                <span class="d-none d-lg-inline">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-users"></i>
+                                <span class="d-none d-lg-inline">Users</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-cog"></i>
+                                <span class="d-none d-lg-inline">Settings</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span class="d-none d-lg-inline">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Login Info -->
+                    <div class="login-info d-none d-md-block">
+                        <small>Welcome, Admin</small>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        
+        <!-- Test Sidebar with Fixed Arrows -->
+        <div class="test-section">
+            <h4>Sidebar with Fixed Arrows (Small and at End):</h4>
+            <div class="sidebar" style="position: relative; width: 240px; height: auto;">
+                <div class="sidebar-logo">
+                    <span class="sidebar-logo-text">ProDX ERP</span>
+                </div>
+                
+                <!-- Test Accordion with Fixed Arrow -->
+                <div class="sidebar-section">
+                    <div class="sidebar-accordion">
+                        <div class="sidebar-accordion-header" data-bs-toggle="collapse" data-bs-target="#testCollapse1" aria-expanded="true" aria-controls="testCollapse1">
+                            <div class="sidebar-title">
+                                <i class="fas fa-cog"></i>
+                                MASTER SETTINGS
+                            </div>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="collapse show" id="testCollapse1">
+                            <div class="sidebar-description">
+                                Manage all master data and configurations
+                            </div>
+                            <a href="#" class="sidebar-link">
+                                <i class="fas fa-truck me-2"></i>Supplier Master
+                            </a>
+                            <a href="#" class="sidebar-link">
+                                <i class="fas fa-users me-2"></i>Customer Master
+                            </a>
+                            <a href="#" class="sidebar-link">
+                                <i class="fas fa-box me-2"></i>Material Master
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-accordion">
+                        <div class="sidebar-accordion-header" data-bs-toggle="collapse" data-bs-target="#testCollapse2" aria-expanded="false" aria-controls="testCollapse2">
+                            <div class="sidebar-title">
+                                <i class="fas fa-shopping-cart"></i>
+                                PROCUREMENT
+                            </div>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="collapse" id="testCollapse2">
+                            <div class="sidebar-description">
+                                Manage purchase and procurement processes
+                            </div>
+                            <a href="#" class="sidebar-link">
+                                <i class="fas fa-clipboard-list me-2"></i>Purchase Requisition
+                            </a>
+                            <a href="#" class="sidebar-link">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase Order
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-accordion">
+                        <div class="sidebar-accordion-header" data-bs-toggle="collapse" data-bs-target="#testCollapse3" aria-expanded="false" aria-controls="testCollapse3">
+                            <div class="sidebar-title">
+                                <i class="fas fa-industry"></i>
+                                PRODUCTION
+                            </div>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="collapse" id="testCollapse3">
+                            <div class="sidebar-description">
+                                Access all your manufacturing operations
+                            </div>
+                            <a href="#" class="sidebar-link">
+                                <i class="fas fa-tasks me-2"></i>Work Orders
+                            </a>
+                            <a href="#" class="sidebar-link">
+                                <i class="fas fa-chart-line me-2"></i>Production Tracking
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h4>Fixes Applied:</h4>
+            <ul>
+                <li>✅ <strong>Top Navigation:</strong> Reduced padding, improved hover effects, smaller icons, better spacing</li>
+                <li>✅ <strong>Sidebar Arrows:</strong> Made smaller (0.4rem), positioned at end with margin-left: auto</li>
+                <li>✅ <strong>Arrow Opacity:</strong> Reduced to 0.5 for subtle appearance</li>
+                <li>✅ <strong>Layout:</strong> Used flexbox with gap instead of space-between for better control</li>
+                <li>✅ <strong>Professional Look:</strong> Cleaner, more refined appearance</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Main JavaScript -->
+    <script src="public/js/app.js"></script>
+</body>
+</html>

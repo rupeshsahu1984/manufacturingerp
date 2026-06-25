@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Forms</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; }
+        .test-section { margin-bottom: 40px; border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
+        .test-section h3 { color: #007bff; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-5">Form Test Page</h1>
+        
+        <div class="test-section">
+            <h3>Sales Order Form Test</h3>
+            <p>Click the button below to test the sales order form:</p>
+            <a href="http://localhost/manufacturingerp/sales-order/create" class="btn btn-primary" target="_blank">
+                <i class="fas fa-external-link-alt me-2"></i>Open Sales Order Form
+            </a>
+        </div>
+        
+        <div class="test-section">
+            <h3>Purchase Bill Form Test</h3>
+            <p>Click the button below to test the purchase bill form:</p>
+            <a href="http://localhost/manufacturingerp/purchase-bill/create" class="btn btn-success" target="_blank">
+                <i class="fas fa-external-link-alt me-2"></i>Open Purchase Bill Form
+            </a>
+        </div>
+        
+        <div class="test-section">
+            <h3>Expected Results</h3>
+            <ul>
+                <li>✅ Side menu should be visible on the left</li>
+                <li>✅ Forms should have 8-column left side and 4-column right side</li>
+                <li>✅ "Add Product" button should add empty text boxes in a grid</li>
+                <li>✅ No fields should be pre-filled</li>
+                <li>✅ Date field should be empty (not auto-filled)</li>
+                <li>✅ All calculations should work when you enter values</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h3>Troubleshooting</h3>
+            <ul>
+                <li>If forms don't load: Check if your server is running</li>
+                <li>If side menu is hidden: Check browser console for CSS/JS errors</li>
+                <li>If "Add Product" doesn't work: Check browser console for JavaScript errors</li>
+                <li>If layout is wrong: Clear browser cache and refresh</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

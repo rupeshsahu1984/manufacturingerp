@@ -1,0 +1,35 @@
+<svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef7f0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5e6d3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background rectangle -->
+  <rect x="2" y="2" width="36" height="36" rx="8" fill="url(#logoGradient)" stroke="#2c3e50" stroke-width="1"/>
+  
+  <!-- Letter P -->
+  <path d="M8 8 L8 32 L20 32 Q26 32 26 26 L26 20 Q26 14 20 14 L12 14 L12 8 Z" fill="#2c3e50"/>
+  <path d="M12 18 L20 18 Q22 18 22 20 L22 26 Q22 28 20 28 L12 28 Z" fill="url(#logoGradient)"/>
+  
+  <!-- Letter R -->
+  <path d="M30 8 L30 32 L42 32 Q48 32 48 26 L48 20 Q48 14 42 14 L34 14 L34 8 Z" fill="#2c3e50"/>
+  <path d="M34 18 L42 18 Q44 18 44 20 L44 26 Q44 28 42 28 L34 28 Z" fill="url(#logoGradient)"/>
+  <path d="M34 22 L48 32" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  
+  <!-- Letter O -->
+  <ellipse cx="58" cy="20" rx="8" ry="12" fill="#2c3e50"/>
+  <ellipse cx="58" cy="20" rx="4" ry="8" fill="url(#logoGradient)"/>
+  
+  <!-- Letter D -->
+  <path d="M68 8 L68 32 L80 32 Q86 32 86 20 Q86 8 80 8 Z" fill="#2c3e50"/>
+  <path d="M72 12 L80 12 Q82 12 82 20 Q82 28 80 28 L72 28 Z" fill="url(#logoGradient)"/>
+  
+  <!-- Letter X -->
+  <path d="M90 8 L98 32 L102 32 L94 8 Z" fill="#2c3e50"/>
+  <path d="M90 32 L98 8 L102 8 L94 32 Z" fill="#2c3e50"/>
+  
+  <!-- Text label -->
+  <text x="60" y="38" font-family="Arial, sans-serif" font-size="6" fill="#6c757d" text-anchor="middle">ERP System</text>
+</svg>

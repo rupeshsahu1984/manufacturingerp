@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Fix Test - ProDX ERP</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link href="public/css/main.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h2>Menu Fix Test</h2>
+        <p>Testing the fixed menu arrows and single logo:</p>
+        
+        <!-- Test Top Navigation Logo -->
+        <div class="mb-4">
+            <h4>Top Navigation Logo (Only Logo):</h4>
+            <nav class="navbar navbar-expand-lg top-nav">
+                <div class="container-fluid">
+                    <div class="navbar-brand d-flex align-items-center">
+                        <img src="public/images/logo-text.svg" alt="ProDX ERP" class="logo-img me-3" onerror="this.src='public/images/logo.svg'">
+                        <span class="brand-text d-none d-md-inline">ProDX ERP System</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        
+        <!-- Test Sidebar with Text Only -->
+        <div class="mb-4">
+            <h4>Sidebar (Text Only - No Duplicate Logo):</h4>
+            <div class="sidebar" style="position: relative; width: 240px; height: auto;">
+                <div class="sidebar-logo">
+                    <span class="sidebar-logo-text">ProDX ERP</span>
+                </div>
+                
+                <!-- Test Accordion with Smaller Arrow -->
+                <div class="sidebar-section">
+                    <div class="sidebar-accordion">
+                        <div class="sidebar-accordion-header" data-bs-toggle="collapse" data-bs-target="#testCollapse1" aria-expanded="false" aria-controls="testCollapse1">
+                            <div class="sidebar-title">
+                                <i class="fas fa-cog"></i>
+                                MASTER SETTINGS
+                            </div>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="collapse" id="testCollapse1">
+                            <div class="sidebar-description">
+                                Manage all master data and configurations
+                            </div>
+                            <a href="#" class="sidebar-link">
+                                <i class="fas fa-truck me-2"></i>Supplier Master
+                            </a>
+                            <a href="#" class="sidebar-link">
+                                <i class="fas fa-users me-2"></i>Customer Master
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-accordion">
+                        <div class="sidebar-accordion-header" data-bs-toggle="collapse" data-bs-target="#testCollapse2" aria-expanded="false" aria-controls="testCollapse2">
+                            <div class="sidebar-title">
+                                <i class="fas fa-shopping-cart"></i>
+                                PROCUREMENT
+                            </div>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="collapse" id="testCollapse2">
+                            <div class="sidebar-description">
+                                Manage purchase and procurement processes
+                            </div>
+                            <a href="#" class="sidebar-link">
+                                <i class="fas fa-clipboard-list me-2"></i>Purchase Requisition
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>Fixes Applied:</h4>
+            <ul>
+                <li>✅ Removed duplicate logo from sidebar - now only text</li>
+                <li>✅ Made accordion arrows smaller (0.5rem) and more subtle (opacity 0.6)</li>
+                <li>✅ Reduced sidebar title icons size (0.65rem) and opacity</li>
+                <li>✅ Centered sidebar logo text</li>
+                <li>✅ Reduced spacing and padding for cleaner look</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Main JavaScript -->
+    <script src="public/js/app.js"></script>
+</body>
+</html>

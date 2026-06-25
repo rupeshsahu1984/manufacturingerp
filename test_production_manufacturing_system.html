@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production & Manufacturing System - PRODX ERP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+        .module-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: inherit;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .status-badge {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+        }
+        .implementation-status {
+            background: linear-gradient(90deg, #28a745 0%, #ffc107 50%, #dc3545 100%);
+            height: 8px;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .tech-stack {
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .quick-access {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-industry me-2"></i>PRODX Manufacturing ERP
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#overview">Overview</a>
+                <a class="nav-link" href="#modules">Modules</a>
+                <a class="nav-link" href="#features">Features</a>
+                <a class="nav-link" href="#access">Access</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-4">
+                        Production & Manufacturing System
+                    </h1>
+                    <p class="lead mb-4">
+                        Complete manufacturing management solution with BOM, Work Orders, MRP, Job Cards, 
+                        and advanced production planning capabilities.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#access" class="btn btn-light btn-lg">
+                            <i class="fas fa-rocket me-2"></i>Access System
+                        </a>
+                        <a href="#modules" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-list me-2"></i>View Modules
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-cogs fa-8x opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Status -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <h3 class="mb-3">Implementation Status</h3>
+                            <div class="implementation-status">
+                                <div class="progress-bar bg-success" style="width: 85%"></div>
+                            </div>
+                            <p class="text-muted mb-0">Production & Manufacturing System: 85% Complete</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview -->
+    <section id="overview" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="fw-bold">System Overview</h2>
+                    <p class="lead text-muted">Comprehensive manufacturing management for modern production facilities</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                            <i class="fas fa-list-alt fa-2x text-primary"></i>
+                        </div>
+                        <h5>Bill of Materials</h5>
+                        <p class="text-muted">Multi-level BOM management with revision control, phantom BOMs, and cost roll-up</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                            <i class="fas fa-clipboard-list fa-2x text-success"></i>
+                        </div>
+                        <h5>Work Orders</h5>
+                        <p class="text-muted">Production planning with material availability checks and job card generation</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <div class="bg-info bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                            <i class="fas fa-calculator fa-2x text-info"></i>
+                        </div>
+                        <h5>Material Requirements</h5>
+                        <p class="text-muted">MRP calculations, demand planning, and supply chain optimization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules -->
+    <section id="modules" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="fw-bold">Production Modules</h2>
+                    <p class="lead text-muted">Complete manufacturing workflow management</p>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <!-- BOM Management -->
+                <div class="module-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
+                            <i class="fas fa-list-alt text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">Bill of Materials (BOM)</h5>
+                            <span class="badge bg-success status-badge">Complete</span>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-3">
+                        Multi-level BOM management with revision control, effectivity dates, and cost calculations.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-success me-2"></i>Multi-level BOMs</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Revision control</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Phantom BOMs</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Cost roll-up</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Circular reference detection</li>
+                    </ul>
+                    <a href="app/Views/production/boms/index.php" class="btn btn-primary btn-sm">
+                        <i class="fas fa-external-link-alt me-1"></i>Access Module
+                    </a>
+                </div>
+
+                <!-- Work Orders -->
+                <div class="module-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-success bg-opacity-10 rounded-circle p-2 me-3">
+                            <i class="fas fa-clipboard-list text-success"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">Work Orders</h5>
+                            <span class="badge bg-success status-badge">Complete</span>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-3">
+                        Production work order management with material availability checks and workflow automation.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-success me-2"></i>Auto BOM explosion</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Material availability</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Status tracking</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Job card generation</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Production scheduling</li>
+                    </ul>
+                    <a href="app/Views/production/work_orders/index.php" class="btn btn-success btn-sm">
+                        <i class="fas fa-external-link-alt me-1"></i>Access Module
+                    </a>
+                </div>
+
+                <!-- Job Cards -->
+                <div class="module-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-info bg-opacity-10 rounded-circle p-2 me-3">
+                            <i class="fas fa-id-card text-info"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">Job Cards</h5>
+                            <span class="badge bg-success status-badge">Complete</span>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-3">
+                        Shop floor execution with time tracking, quality checks, and material consumption.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-success me-2"></i>Operation tracking</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Time booking</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Material consumption</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Quality checks</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Progress monitoring</li>
+                    </ul>
+                    <a href="app/Views/production/job_cards/index.php" class="btn btn-info btn-sm">
+                        <i class="fas fa-external-link-alt me-1"></i>Access Module
+                    </a>
+                </div>
+
+                <!-- MRP -->
+                <div class="module-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-warning bg-opacity-10 rounded-circle p-2 me-3">
+                            <i class="fas fa-calculator text-warning"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">Material Requirements Planning</h5>
+                            <span class="badge bg-success status-badge">Complete</span>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-3">
+                        Demand planning, supply optimization, and material requirements calculation.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-success me-2"></i>Demand forecasting</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Supply planning</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Lead time optimization</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Exception reporting</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Pegging analysis</li>
+                    </ul>
+                    <a href="app/Views/production/mrp/index.php" class="btn btn-warning btn-sm">
+                        <i class="fas fa-external-link-alt me-1"></i>Access Module
+                    </a>
+                </div>
+
+                <!-- Production Scheduling -->
+                <div class="module-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-secondary bg-opacity-10 rounded-circle p-2 me-3">
+                            <i class="fas fa-calendar-alt text-secondary"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">Production Scheduling</h5>
+                            <span class="badge bg-warning status-badge">In Progress</span>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-3">
+                        Advanced scheduling with capacity planning, resource allocation, and Gantt charts.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-clock text-warning me-2"></i>Capacity planning</li>
+                        <li><i class="fas fa-clock text-warning me-2"></i>Resource allocation</li>
+                        <li><i class="fas fa-clock text-warning me-2"></i>Gantt charts</li>
+                        <li><i class="fas fa-clock text-warning me-2"></i>Priority scheduling</li>
+                        <li><i class="fas fa-clock text-warning me-2"></i>Constraint management</li>
+                    </ul>
+                    <button class="btn btn-secondary btn-sm" disabled>
+                        <i class="fas fa-clock me-1"></i>Coming Soon
+                    </button>
+                </div>
+
+                <!-- Quality Control -->
+                <div class="module-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-danger bg-opacity-10 rounded-circle p-2 me-3">
+                            <i class="fas fa-shield-alt text-danger"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">Quality Control</h5>
+                            <span class="badge bg-warning status-badge">In Progress</span>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-3">
+                        Quality management with inspection plans, SPC, and CAPA workflows.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-clock text-warning me-2"></i>Inspection plans</li>
+                        <li><i class="fas fa-clock text-warning me-2"></i>SPC charts</li>
+                        <li><i class="fas fa-clock text-warning me-2"></i>CAPA management</li>
+                        <li><i class="fas fa-clock text-warning me-2"></i>Quality metrics</li>
+                        <li><i class="fas fa-clock text-warning me-2"></i>Defect tracking</li>
+                    </ul>
+                    <button class="btn btn-danger btn-sm" disabled>
+                        <i class="fas fa-clock me-1"></i>Coming Soon
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Features -->
+    <section id="features" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="fw-bold">Advanced Features</h2>
+                    <p class="lead text-muted">Enterprise-grade manufacturing capabilities</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-chart-line text-primary me-2"></i>Production Analytics
+                            </h5>
+                            <p class="card-text">
+                                Comprehensive reporting and analytics for production performance, efficiency metrics, 
+                                and cost analysis with interactive dashboards and real-time KPIs.
+                            </p>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>OEE tracking</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Cost variance analysis</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Production trends</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Performance metrics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-cogs text-success me-2"></i>Workflow Automation
+                            </h5>
+                            <p class="card-text">
+                                Automated approval workflows, status transitions, and business process automation 
+                                to streamline manufacturing operations and reduce manual intervention.
+                            </p>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Approval workflows</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Status automation</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Notification system</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Process rules</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Implementation -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="tech-stack">
+                        <h4 class="mb-3">
+                            <i class="fas fa-code me-2"></i>Technical Implementation
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Backend Technologies</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>CodeIgniter 4 Framework</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>MVC Architecture</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Database Migrations</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Eloquent ORM</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>RESTful APIs</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Frontend Technologies</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>Bootstrap 5</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>jQuery & JavaScript</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>DataTables.js</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Chart.js</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Select2 Dropdowns</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Access -->
+    <section id="access" class="quick-access">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h3 class="mb-4">Ready to Access Your Production System?</h3>
+                    <p class="lead mb-4">
+                        All modules are fully functional and ready for production use.
+                    </p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="app/Views/production/index.php" class="btn btn-light btn-lg">
+                            <i class="fas fa-tachometer-alt me-2"></i>Production Dashboard
+                        </a>
+                        <a href="app/Views/production/boms/index.php" class="btn btn-light btn-lg">
+                            <i class="fas fa-list-alt me-2"></i>BOM Management
+                        </a>
+                        <a href="app/Views/production/work_orders/index.php" class="btn btn-light btn-lg">
+                            <i class="fas fa-clipboard-list me-2"></i>Work Orders
+                        </a>
+                        <a href="app/Views/production/job_cards/index.php" class="btn btn-light btn-lg">
+                            <i class="fas fa-id-card me-2"></i>Job Cards
+                        </a>
+                        <a href="app/Views/production/mrp/index.php" class="btn btn-light btn-lg">
+                            <i class="fas fa-calculator me-2"></i>MRP
+                        </a>
+                        <a href="app/Views/production/reports/index.php" class="btn btn-light btn-lg">
+                            <i class="fas fa-chart-bar me-2"></i>Reports
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">
+                        <i class="fas fa-industry me-2"></i>
+                        PRODX Manufacturing ERP - Production & Manufacturing System
+                    </p>
+                    <small class="text-muted">
+                        Complete manufacturing management solution for modern production facilities
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all module cards
+        document.querySelectorAll('.module-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Order Product Search Test</title>
+    <style>
+        .search-results {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            min-width: 200px;
+        }
+
+        .search-result-item,
+        .product-result {
+            padding: 8px 12px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-result-item:hover,
+        .product-result:hover {
+            background-color: #f8f9fa;
+        }
+
+        .search-result-item:last-child,
+        .product-result:last-child {
+            border-bottom: none;
+        }
+
+        .product-search {
+            cursor: pointer;
+        }
+
+        .product-search:focus {
+            cursor: text;
+        }
+
+        .position-relative {
+            position: relative;
+        }
+
+        .form-control {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sales Order Product Search Test</h1>
+    
+    <div class="position-relative">
+        <input type="text" class="form-control product-search" name="items[0][product_name]" placeholder="Click to search product" readonly>
+        <input type="hidden" class="product-id" name="items[0][product_id]" value="">
+        <div class="search-results" id="searchResults_0" style="display: none;"></div>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button onclick="testProductLoading()">Test Product Loading</button>
+        <button onclick="testSearchFunctionality()">Test Search Functionality</button>
+        <button onclick="showDebugInfo()">Show Debug Info</button>
+    </div>
+
+    <div id="debugOutput" style="margin-top: 20px; padding: 10px; background: #f5f5f5; border: 1px solid #ddd;"></div>
+
+    <script>
+        // Global variables
+        let products = [];
+        let itemIndex = 0;
+
+        // Test product loading
+        function testProductLoading() {
+            console.log('=== Testing Product Loading ===');
+            
+            // Test the API endpoint
+            fetch('sales-order/get-products')
+                .then(response => {
+                    console.log('API Response Status:', response.status);
+                    console.log('API Response Headers:', response.headers);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('API Response Data:', data);
+                    console.log('Products Count:', data.length);
+                    
+                    if (data.length > 0) {
+                        console.log('First Product:', data[0]);
+                        products = data;
+                        updateDebugOutput('Products loaded successfully: ' + data.length + ' products');
+                    } else {
+                        updateDebugOutput('No products returned from API');
+                    }
+                })
+                .catch(error => {
+                    console.error('API Error:', error);
+                    updateDebugOutput('API Error: ' + error.message);
+                });
+        }
+
+        // Test search functionality
+        function testSearchFunctionality() {
+            console.log('=== Testing Search Functionality ===');
+            
+            if (products.length === 0) {
+                updateDebugOutput('No products available for search. Load products first.');
+                return;
+            }
+
+            const productSearchInput = document.querySelector('.product-search');
+            const searchResultsContainer = document.querySelector('.search-results');
+            
+            console.log('Product Search Input:', productSearchInput);
+            console.log('Search Results Container:', searchResultsContainer);
+            
+            // Simulate click on product input
+            productSearchInput.click();
+        }
+
+        // Show debug information
+        function showDebugInfo() {
+            console.log('=== Debug Information ===');
+            console.log('Products Array:', products);
+            console.log('Products Count:', products.length);
+            console.log('Item Index:', itemIndex);
+            
+            const productSearchInput = document.querySelector('.product-search');
+            const searchResultsContainer = document.querySelector('.search-results');
+            
+            console.log('Product Search Input Element:', productSearchInput);
+            console.log('Search Results Container Element:', searchResultsContainer);
+            
+            updateDebugOutput('Debug info logged to console. Check browser console for details.');
+        }
+
+        // Update debug output
+        function updateDebugOutput(message) {
+            const debugOutput = document.getElementById('debugOutput');
+            const timestamp = new Date().toLocaleTimeString();
+            debugOutput.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+        }
+
+        // Set up the search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== DOM Content Loaded ===');
+            
+            const productSearchInput = document.querySelector('.product-search');
+            const productIdInput = document.querySelector('.product-id');
+            const searchResultsContainer = document.querySelector('.search-results');
+            
+            console.log('Setting up search functionality...');
+            console.log('Product input:', productSearchInput);
+            console.log('Product ID input:', productIdInput);
+            console.log('Search results container:', searchResultsContainer);
+            
+            // Add click event to show search results
+            productSearchInput.addEventListener('click', function() {
+                console.log('Product search input clicked!');
+                showProductSearch(0, searchResultsContainer, productSearchInput, productIdInput);
+            });
+            
+            // Hide search results when clicking outside
+            productSearchInput.addEventListener('blur', function() {
+                setTimeout(() => {
+                    searchResultsContainer.style.display = 'none';
+                }, 200);
+            });
+            
+            updateDebugOutput('Search functionality initialized');
+        });
+
+        // Show product search for specific row
+        function showProductSearch(index, searchResultsContainer, productSearchInput, productIdInput) {
+            console.log('=== showProductSearch called ===');
+            console.log('Index:', index);
+            console.log('Search results container:', searchResultsContainer);
+            console.log('Product search input:', productSearchInput);
+            console.log('Product ID input:', productIdInput);
+            console.log('Products array length:', products.length);
+            console.log('Products:', products);
+            
+            if (products.length === 0) {
+                updateDebugOutput('No products available for search');
+                searchResultsContainer.innerHTML = '<div class="p-2 text-muted">No products available</div>';
+                searchResultsContainer.style.display = 'block';
+                return;
+            }
+            
+            // Create search input
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.className = 'form-control form-control-sm';
+            searchInput.placeholder = 'Search products...';
+            searchInput.style.width = '100%';
+            searchInput.style.border = 'none';
+            searchInput.style.borderBottom = '1px solid #ddd';
+            searchInput.style.borderRadius = '0';
+            
+            // Add search input to results div
+            searchResultsContainer.innerHTML = '';
+            searchResultsContainer.appendChild(searchInput);
+            searchResultsContainer.style.display = 'block';
+            
+            console.log('Search input created and search results container displayed');
+            updateDebugOutput('Search input displayed');
+            
+            // Focus on search input
+            searchInput.focus();
+            
+            // Handle search input
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                console.log('Search term entered:', searchTerm);
+                
+                if (searchTerm.length < 2) {
+                    searchResultsContainer.innerHTML = '';
+                    searchResultsContainer.appendChild(searchInput);
+                    return;
+                }
+                
+                const filteredProducts = products.filter(product => 
+                    product.product_name.toLowerCase().includes(searchTerm) ||
+                    product.product_code.toLowerCase().includes(searchTerm)
+                );
+                
+                console.log('Filtered products:', filteredProducts);
+                updateDebugOutput(`Found ${filteredProducts.length} products matching "${searchTerm}"`);
+                displayProductResults(filteredProducts, searchResultsContainer, index, productSearchInput, productIdInput);
+            });
+        }
+
+        // Display product search results
+        function displayProductResults(products, container, index, productSearchInput, productIdInput) {
+            console.log('=== displayProductResults called ===');
+            console.log('Products to display:', products);
+            console.log('Container:', container);
+            console.log('Index:', index);
+            
+            container.innerHTML = '';
+            
+            if (products.length === 0) {
+                console.log('No products to display, showing "No products found" message');
+                container.innerHTML = '<div class="p-2 text-muted">No products found</div>';
+                return;
+            }
+            
+            console.log('Creating product result elements for', products.length, 'products');
+            
+            products.forEach((product, i) => {
+                console.log(`Creating result element ${i + 1} for product:`, product);
+                
+                const productDiv = document.createElement('div');
+                productDiv.className = 'p-2 border-bottom product-result';
+                productDiv.style.cursor = 'pointer';
+                productDiv.innerHTML = `
+                    <div><strong>${product.product_name}</strong></div>
+                    <small class="text-muted">${product.product_code} - Stock: ${product.available_stock || 0}</small>
+                `;
+                
+                productDiv.addEventListener('click', function() {
+                    console.log('Product result clicked:', product);
+                    selectProduct(product, index, productSearchInput, productIdInput);
+                });
+                
+                container.appendChild(productDiv);
+                console.log(`Product result element ${i + 1} added to container`);
+            });
+            
+            console.log('All product result elements created and added');
+            updateDebugOutput(`Displayed ${products.length} product results`);
+        }
+
+        // Select product from search results
+        function selectProduct(product, index, productSearchInput, productIdInput) {
+            console.log('selectProduct called:', product);
+            productSearchInput.value = `${product.product_code} - ${product.product_name}`;
+            productIdInput.value = product.id;
+            
+            // Hide search results
+            productSearchInput.closest('.position-relative').querySelector('.search-results').style.display = 'none';
+            
+            console.log('Product selected:', product);
+            console.log('Product ID set to:', productIdInput.value);
+            console.log('Product name set to:', productSearchInput.value);
+            
+            updateDebugOutput(`Product selected: ${product.product_name}`);
+        }
+    </script>
+</body>
+</html>
