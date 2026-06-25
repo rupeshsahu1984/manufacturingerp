@@ -1036,14 +1036,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `full_name`, `role`, `status`, `last_login`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@manufacturingerp.com', '$2y$10$rL5QGi1efuiJWA6lRlOl0.yEsH4JdzXYvSO2xnagbTBbcK5fLirt.', 'System Administrator', 'super_admin', 'active', '2025-08-02 21:35:44', '2025-07-31 18:19:06', '2025-08-02 16:05:44'),
-(3, 'purchase', 'purchase@prodx.com', '$2y$10$Q0/nb61Ci6ktB3GnEJmrLuy.6J4/SaMnkZlmtSn3nMIJRU3FKhLJq', 'Purchase Manager', 'purchase', 'active', NULL, '2025-08-02 14:28:23', '2025-08-02 15:54:56'),
-(4, 'sales', 'sales@prodx.com', '$2y$10$K.LtUxsmHFO9ZPhe4YqR0OkypVwNSxOpS2q7T71NFbtawmiHV6kKO', 'Sales Manager', 'sales', 'active', NULL, '2025-08-02 14:28:23', '2025-08-02 15:54:56'),
-(5, 'production', 'production@prodx.com', '$2y$10$.Z.bIHKA8aOT5jwWs59zUel3uVVTwW25NfYpbCICvcjEf2XKwigPC', 'Production Manager', 'production', 'active', NULL, '2025-08-02 14:28:24', '2025-08-02 15:54:56'),
-(6, 'finance', 'finance@prodx.com', '$2y$10$pj0Pn6OlMrnPCFC3/lkZxuhsDKpSjbqasu5me56kbldjpvddbpUK6', 'Finance Manager', 'finance', 'active', NULL, '2025-08-02 14:28:24', '2025-08-02 15:54:56'),
-(7, 'gate_entry', 'gate@prodx.com', '$2y$10$6yd/Cf5uuXSYv/tC5OTjBuMASIS45JVXRehiTdYqhwqtYVffftxfu', 'Gate Entry Officer', 'gate_entry', 'active', NULL, '2025-08-02 14:28:24', '2025-08-02 15:54:56'),
-(8, 'hrm', 'hrm@prodx.com', '$2y$10$.3MWfMBEcEN.JPUr04SMgO0Rk8Xt2bn83YkXQT.5IIPTtkHRsl48O', 'HR Manager', 'hrm', 'active', NULL, '2025-08-02 14:28:25', '2025-08-02 15:54:56'),
-(9, 'reception', 'reception@prodx.com', '$2y$10$dzmfTrYwKOWg7euzXqQj3.k9fymb0DYip5l0DPMMlTWcXlsEOhOsO', 'Receptionist', 'reception', 'active', NULL, '2025-08-02 14:28:25', '2025-08-02 15:54:56'),
+(1, 'admin', 'admin@manufacturingerp.com', '$2y$10$ifmE2H5xB3P2TNXoDJgWMeH6Wi0UUJ5IxicfTaq9G4kcLy8qE/s9O', 'System Administrator', 'super_admin', 'active', '2025-08-02 21:35:44', '2025-07-31 18:19:06', '2026-06-25 09:14:06'),
+(3, 'purchase', 'purchase@prodx.com', '$2y$10$DUdQ9rIciQ/0qN6qDg0XVeDlCPuX4RALKmYSJHDONYxdSz2ZqZrKm', 'Purchase Manager', 'purchase', 'active', NULL, '2025-08-02 14:28:23', '2026-06-25 09:14:06'),
+(4, 'sales', 'sales@prodx.com', '$2y$10$y9L1oDaXCdjSTv5HfLtrsOZKT6HMn1jzJMKZXoHC9YIz571inR2JS', 'Sales Manager', 'sales', 'active', NULL, '2025-08-02 14:28:23', '2026-06-25 09:14:06'),
+(5, 'production', 'production@prodx.com', '$2y$10$NJjxQcWf7shs5JFoT/ZTo.vg2egDDBkV/AnqEG25/L5g8fqtuKpAa', 'Production Manager', 'production', 'active', NULL, '2025-08-02 14:28:24', '2026-06-25 09:14:06'),
+(6, 'finance', 'finance@prodx.com', '$2y$10$vtisdINA3YaWDoZj5.JoT.YBpiq8ChbLEFb41LFilH8HhH4cvrth.', 'Finance Manager', 'finance', 'active', NULL, '2025-08-02 14:28:24', '2026-06-25 09:14:06'),
+(7, 'gate_entry', 'gate@prodx.com', '$2y$10$xQZPriZGRU7WkVUHH8l3tOYQjXT7cnKwQA8w1L4CQqrYBowS.CinG', 'Gate Entry Officer', 'gate_entry', 'active', NULL, '2025-08-02 14:28:24', '2026-06-25 09:14:06'),
+(8, 'hrm', 'hrm@prodx.com', '$2y$10$m1Z/fmVvu3zwWY3jowxeVO31nV7UhBYOX.aCdyw/G2gAA5ATKZCHG', 'HR Manager', 'hrm', 'active', NULL, '2025-08-02 14:28:25', '2026-06-25 09:14:06'),
+(9, 'reception', 'reception@prodx.com', '$2y$10$uVAvYeqsER/to30KMg5kROJuvEnSGCa02AvAKEk0etmEg6OTgBaH.', 'Receptionist', 'reception', 'active', NULL, '2025-08-02 14:28:25', '2026-06-25 09:14:06'),
 (10, 'manager', 'manager@prodx.com', '$2y$10$14roRuXriq5Q7TQlJmpMY.rjDiPu/FVMinOuFBITmq48UE7KP2yoi', 'Manager', 'manager', 'active', NULL, '2025-08-03 12:34:41', '2025-08-03 12:34:41'),
 (11, 'user', 'user@prodx.com', '$2y$10$73HNjY4CuxB9RpsDzWJRC.UfdffsQT.8KfezcWXuFKUZnXK9Xaxmm', 'User', 'user', 'active', NULL, '2025-08-03 12:34:41', '2025-08-03 12:34:41');
 

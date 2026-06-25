@@ -6,504 +6,535 @@
     <title>Login - PRODX ERP</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-            <link href="<?= base_url('public/css/sidebar.css?v=2') ?>" rel="stylesheet">
     <style>
         :root {
-            --primary-orange: #ff6b35;
-            --secondary-orange: #e55a2b;
-            --light-orange: #fff5f2;
-            --white: #ffffff;
-            --light-gray: #f8f9fa;
-            --dark-gray: #343a40;
-            --text-gray: #666;
+            --brand: #f15a2b;
+            --brand-dark: #c83f18;
+            --ink: #17212f;
+            --muted: #667085;
+            --line: #d9e0ea;
+            --surface: #ffffff;
+            --soft: #f5f7fb;
+            --panel: #101828;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
             min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 12% 18%, rgba(241, 90, 43, 0.14), transparent 28%),
+                linear-gradient(135deg, #eef2f7 0%, #f7f9fc 48%, #eef3f8 100%);
         }
-        
-        .login-container {
+
+        .login-shell {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .login-card {
-            background: var(--white);
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            max-width: 1000px;
-            width: 100%;
-            display: flex;
-        }
-        
-        .login-left {
-            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
-            color: white;
-            padding: 40px 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            flex: 1;
-        }
-        
-        .login-left::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.3;
-        }
-        
-        .login-left-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .company-logo {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .company-name {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-        
-        .company-tagline {
-            font-size: 1rem;
-            opacity: 0.9;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .erp-features {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .erp-features li {
-            padding: 6px 0;
-            display: flex;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-        
-        .erp-features li i {
-            margin-right: 10px;
-            width: 18px;
-            text-align: center;
-        }
-        
-        .login-right {
-            padding: 40px 35px;
-            background: var(--white);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .login-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--dark-gray);
-            margin-bottom: 8px;
-        }
-        
-        .login-subtitle {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-        }
-        
-        .role-selector {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-            margin-bottom: 25px;
+            place-items: center;
+            padding: 32px 18px;
         }
-        
-        .role-option {
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 12px 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: var(--light-gray);
+
+        .login-card {
+            width: min(1180px, 100%);
+            min-height: 720px;
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            overflow: hidden;
+            border: 1px solid rgba(16, 24, 40, 0.08);
+            border-radius: 22px;
+            background: var(--surface);
+            box-shadow: 0 26px 70px rgba(15, 23, 42, 0.16);
         }
-        
-        .role-option:hover {
-            border-color: var(--primary-orange);
-            background-color: var(--light-orange);
-            transform: translateY(-2px);
+
+        .brand-panel {
+            position: relative;
+            padding: 52px;
+            color: #fff;
+            background:
+                linear-gradient(rgba(16, 24, 40, 0.88), rgba(16, 24, 40, 0.88)),
+                url("https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80") center/cover;
         }
-        
-        .role-option.selected {
-            border-color: var(--primary-orange);
-            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+
+        .brand-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 72px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
         }
-        
-        .role-option i {
-            font-size: 1.3rem;
-            margin-bottom: 6px;
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: var(--brand);
+            box-shadow: 0 12px 28px rgba(241, 90, 43, 0.36);
+        }
+
+        .brand-panel h1 {
+            max-width: 500px;
+            margin: 0 0 18px;
+            font-size: 42px;
+            line-height: 1.08;
+            font-weight: 800;
+            letter-spacing: 0;
+        }
+
+        .brand-panel p {
+            max-width: 520px;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.78);
+            line-height: 1.7;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 52px;
+        }
+
+        .metric {
+            padding: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+        }
+
+        .metric strong {
             display: block;
+            margin-bottom: 4px;
+            font-size: 22px;
         }
-        
-        .role-option .role-name {
-            font-weight: 600;
-            font-size: 0.8rem;
-            margin-bottom: 3px;
+
+        .metric span {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 13px;
         }
-        
-        .role-option .role-desc {
-            font-size: 0.7rem;
-            opacity: 0.8;
+
+        .form-panel {
+            padding: 42px 48px;
+            background: linear-gradient(180deg, #fff 0%, #fbfcfe 100%);
         }
-        
+
+        .login-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .login-header h2 {
+            margin: 0 0 8px;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 0;
+        }
+
+        .login-header p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 11px;
+            border: 1px solid #c7f0d8;
+            border-radius: 999px;
+            color: #067647;
+            background: #ecfdf3;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .role-option {
+            min-height: 88px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 12px 10px;
+            text-align: left;
+            cursor: pointer;
+            background: #fff;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+        }
+
+        .role-option:hover,
+        .role-option.selected {
+            border-color: var(--brand);
+            box-shadow: 0 10px 28px rgba(241, 90, 43, 0.14);
+            transform: translateY(-1px);
+        }
+
+        .role-option.selected {
+            background: #fff7f3;
+        }
+
+        .role-option i {
+            color: var(--brand);
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .role-name {
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .role-desc {
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .form-label {
+            font-weight: 700;
+            color: #263244;
+        }
+
+        .input-group-text,
         .form-control {
-            border-radius: 10px;
-            border: 2px solid #e9ecef;
-            padding: 12px 15px;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
+            min-height: 50px;
+            border-color: var(--line);
         }
-        
-        .form-control:focus {
-            border-color: var(--primary-orange);
-            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
-        }
-        
+
         .input-group-text {
-            border-radius: 10px 0 0 10px;
-            border: 2px solid #e9ecef;
-            background: var(--light-gray);
+            width: 50px;
+            justify-content: center;
+            color: var(--muted);
+            background: var(--soft);
         }
-        
+
+        .form-control:focus {
+            border-color: var(--brand);
+            box-shadow: 0 0 0 0.2rem rgba(241, 90, 43, 0.13);
+        }
+
         .btn-login {
-            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
-            border: none;
-            border-radius: 10px;
-            padding: 12px 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: white;
-            transition: all 0.3s ease;
+            min-height: 52px;
+            border: 0;
+            border-radius: 12px;
+            color: #fff;
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            font-weight: 800;
+            box-shadow: 0 14px 28px rgba(241, 90, 43, 0.24);
         }
-        
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+
+        .credential-panel {
+            margin-top: 24px;
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: #fff;
         }
-        
-        .demo-credentials {
-            background: var(--light-orange);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 25px;
-        }
-        
-        .demo-credentials h6 {
-            color: var(--dark-gray);
-            font-weight: 600;
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-        }
-        
-        .credential-item {
+
+        .credential-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 6px 0;
-            border-bottom: 1px solid #e9ecef;
+            gap: 12px;
+            margin-bottom: 12px;
         }
-        
-        .credential-item:last-child {
-            border-bottom: none;
+
+        .credential-header h6 {
+            margin: 0;
+            font-weight: 800;
         }
-        
-        .credential-label {
-            font-weight: 600;
-            color: var(--text-gray);
-            font-size: 0.8rem;
+
+        .credential-header span {
+            color: var(--muted);
+            font-size: 12px;
         }
-        
-        .credential-value {
-            background: var(--primary-orange);
-            color: white;
-            padding: 3px 6px;
-            border-radius: 5px;
-            font-size: 0.75rem;
-            font-weight: 600;
+
+        .credential-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
         }
-        
-        @media (max-width: 768px) {
-            .login-left {
+
+        .credential-btn {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 11px 12px;
+            text-align: left;
+            color: var(--ink);
+            background: var(--soft);
+            transition: border-color 0.18s ease, background 0.18s ease;
+        }
+
+        .credential-btn:hover {
+            border-color: var(--brand);
+            background: #fff7f3;
+        }
+
+        .credential-btn strong,
+        .credential-btn span {
+            display: block;
+        }
+
+        .credential-btn strong {
+            font-size: 13px;
+        }
+
+        .credential-btn span {
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .login-footer {
+            margin-top: 18px;
+            color: var(--muted);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 980px) {
+            .login-card {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-panel {
                 display: none;
             }
-            
-            .login-right {
-                padding: 30px 25px;
+        }
+
+        @media (max-width: 620px) {
+            .login-shell {
+                padding: 0;
             }
-            
+
             .login-card {
-                flex-direction: column;
+                min-height: 100vh;
+                border-radius: 0;
+            }
+
+            .form-panel {
+                padding: 28px 18px;
+            }
+
+            .login-header {
+                display: block;
+            }
+
+            .status-pill {
+                margin-top: 14px;
+            }
+
+            .role-grid,
+            .credential-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <!-- Left Side - ERP Info -->
-            <div class="login-left">
-                <div class="login-left-content">
-                    <div class="company-logo">
-                        <i class="fas fa-industry"></i>
+<?php
+    $credentials = [
+        ['role' => 'super_admin', 'label' => 'Super Admin', 'desc' => 'Full access', 'icon' => 'fa-crown', 'username' => 'admin', 'password' => 'Admin@2026'],
+        ['role' => 'purchase', 'label' => 'Purchase', 'desc' => 'Procurement', 'icon' => 'fa-cart-shopping', 'username' => 'purchase', 'password' => 'Purchase@2026'],
+        ['role' => 'sales', 'label' => 'Sales', 'desc' => 'Orders and dispatch', 'icon' => 'fa-chart-line', 'username' => 'sales', 'password' => 'Sales@2026'],
+        ['role' => 'production', 'label' => 'Production', 'desc' => 'Manufacturing', 'icon' => 'fa-gears', 'username' => 'production', 'password' => 'Production@2026'],
+        ['role' => 'finance', 'label' => 'Finance', 'desc' => 'Accounting', 'icon' => 'fa-file-invoice-dollar', 'username' => 'finance', 'password' => 'Finance@2026'],
+        ['role' => 'gate_entry', 'label' => 'Gate Entry', 'desc' => 'Logistics', 'icon' => 'fa-truck-ramp-box', 'username' => 'gate_entry', 'password' => 'Gate@2026'],
+        ['role' => 'hrm', 'label' => 'HRM', 'desc' => 'People ops', 'icon' => 'fa-users', 'username' => 'hrm', 'password' => 'Hrm@2026'],
+        ['role' => 'reception', 'label' => 'Reception', 'desc' => 'Front desk', 'icon' => 'fa-id-card', 'username' => 'reception', 'password' => 'Reception@2026'],
+    ];
+?>
+    <main class="login-shell">
+        <section class="login-card">
+            <aside class="brand-panel">
+                <div class="brand-mark">
+                    <span class="brand-icon"><i class="fas fa-industry"></i></span>
+                    <span>PRODX ERP</span>
+                </div>
+                <h1>Manufacturing operations, finance, and teams in one control center.</h1>
+                <p>Track procurement, production, inventory, sales, HR, accounting, and reporting from a single role-aware ERP workspace.</p>
+
+                <div class="metric-grid">
+                    <div class="metric">
+                        <strong>8</strong>
+                        <span>Core business modules</span>
                     </div>
-                    <div class="company-name">PRODX ERP</div>
-                    <div class="company-tagline">Enterprise Resource Planning for Modern Manufacturing</div>
-                    
-                    <div class="mt-3">
-                        <h6 class="mb-2">Key Features:</h6>
-                        <ul class="erp-features">
-                            <li><i class="fas fa-chart-line"></i> Real-time Analytics</li>
-                            <li><i class="fas fa-cogs"></i> Production Planning</li>
-                            <li><i class="fas fa-shopping-cart"></i> Procurement Management</li>
-                            <li><i class="fas fa-truck"></i> Inventory & Logistics</li>
-                            <li><i class="fas fa-users"></i> Human Resources</li>
-                            <li><i class="fas fa-money-bill-wave"></i> Financial Management</li>
-                            <li><i class="fas fa-shield-alt"></i> Quality Control</li>
-                            <li><i class="fas fa-mobile-alt"></i> Mobile Ready</li>
-                        </ul>
+                    <div class="metric">
+                        <strong>24/7</strong>
+                        <span>Plant-ready access</span>
                     </div>
-                    
-                    <div class="mt-3 text-center">
-                        <small style="opacity: 0.8;">
-                            Trusted by 500+ Manufacturing Companies
-                        </small>
+                    <div class="metric">
+                        <strong>Live</strong>
+                        <span>Inventory and sales views</span>
+                    </div>
+                    <div class="metric">
+                        <strong>Secure</strong>
+                        <span>Role based sign in</span>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Right Side - Login Form -->
-            <div class="login-right">
+            </aside>
+
+            <section class="form-panel">
                 <div class="login-header">
-                    <h2 class="login-title">Welcome Back</h2>
-                    <p class="login-subtitle">Sign in to access your PRODX ERP dashboard</p>
+                    <div>
+                        <h2>Sign in</h2>
+                        <p>Use a role below or enter your assigned ERP credentials.</p>
+                    </div>
+                    <div class="status-pill"><i class="fas fa-circle-check"></i> ERP Online</div>
                 </div>
-                
+
                 <?php if (session()->getFlashdata('error')): ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fas fa-exclamation-triangle me-2"></i>
-                        <?= session()->getFlashdata('error') ?>
+                        <i class="fas fa-triangle-exclamation me-2"></i>
+                        <?= esc(session()->getFlashdata('error')) ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 <?php endif; ?>
 
                 <?php if (session()->getFlashdata('success')): ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="fas fa-check-circle me-2"></i>
-                        <?= session()->getFlashdata('success') ?>
+                        <i class="fas fa-circle-check me-2"></i>
+                        <?= esc(session()->getFlashdata('success')) ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 <?php endif; ?>
 
                 <form method="POST" action="<?= base_url('login') ?>" id="loginForm">
-                    <!-- User Role Selection -->
+                    <?= csrf_field() ?>
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Select Your Role</label>
-                        <div class="role-selector">
-                            <div class="role-option" data-role="super_admin">
-                                <i class="fas fa-crown"></i>
-                                <div class="role-name">Super Admin</div>
-                                <div class="role-desc">Full Access</div>
-                            </div>
-                            <div class="role-option" data-role="purchase">
-                                <i class="fas fa-shopping-cart"></i>
-                                <div class="role-name">Purchase</div>
-                                <div class="role-desc">Procurement</div>
-                            </div>
-                            <div class="role-option" data-role="sales">
-                                <i class="fas fa-chart-line"></i>
-                                <div class="role-name">Sales</div>
-                                <div class="role-desc">Sales & Distribution</div>
-                            </div>
-                            <div class="role-option" data-role="production">
-                                <i class="fas fa-cogs"></i>
-                                <div class="role-name">Production</div>
-                                <div class="role-desc">Manufacturing</div>
-                            </div>
-                            <div class="role-option" data-role="finance">
-                                <i class="fas fa-money-bill-wave"></i>
-                                <div class="role-name">Finance</div>
-                                <div class="role-desc">Accounting</div>
-                            </div>
-                            <div class="role-option" data-role="gate_entry">
-                                <i class="fas fa-truck"></i>
-                                <div class="role-name">Gate Entry</div>
-                                <div class="role-desc">Logistics</div>
-                            </div>
-                            <div class="role-option" data-role="hrm">
-                                <i class="fas fa-users"></i>
-                                <div class="role-name">HRM</div>
-                                <div class="role-desc">Human Resources</div>
-                            </div>
-                            <div class="role-option" data-role="reception">
-                                <i class="fas fa-user-tie"></i>
-                                <div class="role-name">Reception</div>
-                                <div class="role-desc">Visitor Management</div>
-                            </div>
+                        <label class="form-label">Role</label>
+                        <div class="role-grid">
+                            <?php foreach ($credentials as $credential): ?>
+                                <button type="button"
+                                        class="role-option"
+                                        data-role="<?= esc($credential['role']) ?>"
+                                        data-username="<?= esc($credential['username']) ?>"
+                                        data-password="<?= esc($credential['password']) ?>">
+                                    <i class="fas <?= esc($credential['icon']) ?>"></i>
+                                    <div class="role-name"><?= esc($credential['label']) ?></div>
+                                    <div class="role-desc"><?= esc($credential['desc']) ?></div>
+                                </button>
+                            <?php endforeach; ?>
                         </div>
-                        <input type="hidden" name="role" id="selectedRole" required>
+                        <input type="hidden" name="role" id="selectedRole" value="super_admin" required>
                     </div>
 
-                    <!-- Username -->
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <div class="input-group">
-                            <span class="input-group-text">
-                                <i class="fas fa-user"></i>
-                            </span>
-                            <input type="text" class="form-control" id="username" name="username" 
-                                   placeholder="Enter your username" required>
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required autocomplete="username">
                         </div>
                     </div>
 
-                    <!-- Password -->
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group">
-                            <span class="input-group-text">
-                                <i class="fas fa-lock"></i>
-                            </span>
-                            <input type="password" class="form-control" id="password" name="password" 
-                                   placeholder="Enter your password" required>
-                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required autocomplete="current-password">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword" aria-label="Show password">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Remember Me -->
-                    <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="remember" name="remember">
-                            <label class="form-check-label" for="remember">
-                                Remember me
-                            </label>
+                            <label class="form-check-label" for="remember">Remember me</label>
                         </div>
+                        <small class="text-muted">PRODX Manufacturing ERP</small>
                     </div>
 
-                    <!-- Submit Button -->
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-login">
-                            <i class="fas fa-sign-in-alt me-2"></i>Sign In to PRODX
-                        </button>
-                    </div>
+                    <button type="submit" class="btn btn-login w-100">
+                        <i class="fas fa-right-to-bracket me-2"></i>Access Dashboard
+                    </button>
                 </form>
 
-                <!-- Demo Credentials -->
-                <div class="demo-credentials">
-                    <h6><i class="fas fa-info-circle me-2"></i>Demo Credentials</h6>
-                    <div class="credential-item">
-                        <span class="credential-label">Super Admin:</span>
-                        <span class="credential-value">admin / admin123</span>
+                <div class="credential-panel">
+                    <div class="credential-header">
+                        <h6><i class="fas fa-key me-2"></i>Quick Login Credentials</h6>
+                        <span>Click any account to fill the form</span>
                     </div>
-                    <div class="credential-item">
-                        <span class="credential-label">Purchase:</span>
-                        <span class="credential-value">purchase / purchase123</span>
-                    </div>
-                    <div class="credential-item">
-                        <span class="credential-label">Sales:</span>
-                        <span class="credential-value">sales / sales123</span>
-                    </div>
-                    <div class="credential-item">
-                        <span class="credential-label">Production:</span>
-                        <span class="credential-value">production / production123</span>
+                    <div class="credential-grid">
+                        <?php foreach ($credentials as $credential): ?>
+                            <button type="button"
+                                    class="credential-btn"
+                                    data-role="<?= esc($credential['role']) ?>"
+                                    data-username="<?= esc($credential['username']) ?>"
+                                    data-password="<?= esc($credential['password']) ?>">
+                                <strong><?= esc($credential['label']) ?></strong>
+                                <span><?= esc($credential['username']) ?> / <?= esc($credential['password']) ?></span>
+                            </button>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 
-                <!-- Footer -->
-                <div class="text-center mt-3">
-                    <small class="text-muted">
-                        © 2025 PRODX ERP. All rights reserved. | Enterprise Manufacturing Solutions
-                    </small>
+                <div class="login-footer">
+                    &copy; <?= date('Y') ?> PRODX ERP. Enterprise Manufacturing Solutions.
                 </div>
-            </div>
-        </div>
-    </div>
+            </section>
+        </section>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Role selection
-        document.querySelectorAll('.role-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove selected class from all options
-                document.querySelectorAll('.role-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                
-                // Add selected class to clicked option
-                this.classList.add('selected');
-                
-                // Set the hidden input value
-                document.getElementById('selectedRole').value = this.dataset.role;
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const selectedRoleInput = document.getElementById('selectedRole');
+        const roleButtons = document.querySelectorAll('.role-option');
+
+        function selectCredential(button) {
+            const role = button.dataset.role;
+            selectedRoleInput.value = role;
+            usernameInput.value = button.dataset.username || '';
+            passwordInput.value = button.dataset.password || '';
+
+            roleButtons.forEach((roleButton) => {
+                roleButton.classList.toggle('selected', roleButton.dataset.role === role);
             });
+
+            usernameInput.dispatchEvent(new Event('input', { bubbles: true }));
+            passwordInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+
+        document.querySelectorAll('.role-option, .credential-btn').forEach((button) => {
+            button.addEventListener('click', () => selectCredential(button));
         });
 
-        // Password toggle
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
+        document.getElementById('togglePassword').addEventListener('click', function () {
             const icon = this.querySelector('i');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
+            const visible = passwordInput.type === 'text';
+            passwordInput.type = visible ? 'password' : 'text';
+            icon.classList.toggle('fa-eye', visible);
+            icon.classList.toggle('fa-eye-slash', !visible);
+            this.setAttribute('aria-label', visible ? 'Show password' : 'Hide password');
         });
 
-        // Form validation
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            const selectedRole = document.getElementById('selectedRole').value;
-            
-            if (!selectedRole) {
-                e.preventDefault();
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            if (!selectedRoleInput.value) {
+                event.preventDefault();
                 alert('Please select your role before logging in.');
-                return false;
             }
         });
 
-        // Auto-select first role
-        document.querySelector('.role-option').classList.add('selected');
-        document.getElementById('selectedRole').value = 'super_admin';
+        selectCredential(document.querySelector('.role-option[data-role="super_admin"]'));
     </script>
 </body>
-</html> 
+</html>
