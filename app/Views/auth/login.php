@@ -8,153 +8,145 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --brand: #f15a2b;
-            --brand-dark: #c83f18;
-            --ink: #17212f;
+            --brand: #f05a22;
+            --brand-soft: #fff3ed;
+            --ink: #111827;
             --muted: #667085;
-            --line: #d9e0ea;
-            --surface: #ffffff;
-            --soft: #f5f7fb;
-            --panel: #101828;
+            --line: #d7dde7;
+            --panel: #182230;
+            --page: #eef2f6;
+            --white: #fff;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             min-height: 100vh;
             margin: 0;
             font-family: Inter, "Segoe UI", Arial, sans-serif;
             color: var(--ink);
-            background:
-                radial-gradient(circle at 12% 18%, rgba(241, 90, 43, 0.14), transparent 28%),
-                linear-gradient(135deg, #eef2f7 0%, #f7f9fc 48%, #eef3f8 100%);
+            background: var(--page);
         }
 
         .login-shell {
             min-height: 100vh;
             display: grid;
             place-items: center;
-            padding: 32px 18px;
+            padding: 32px;
         }
 
-        .login-card {
-            width: min(1180px, 100%);
-            min-height: 720px;
+        .login-frame {
+            width: min(1060px, 100%);
             display: grid;
-            grid-template-columns: 0.95fr 1.05fr;
+            grid-template-columns: 420px minmax(0, 1fr);
+            border: 1px solid var(--line);
+            border-radius: 14px;
             overflow: hidden;
-            border: 1px solid rgba(16, 24, 40, 0.08);
-            border-radius: 22px;
-            background: var(--surface);
-            box-shadow: 0 26px 70px rgba(15, 23, 42, 0.16);
+            background: var(--white);
+            box-shadow: 0 22px 60px rgba(16, 24, 40, 0.14);
         }
 
-        .brand-panel {
-            position: relative;
-            padding: 52px;
+        .system-panel {
+            padding: 36px;
             color: #fff;
-            background:
-                linear-gradient(rgba(16, 24, 40, 0.88), rgba(16, 24, 40, 0.88)),
-                url("https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80") center/cover;
+            background: linear-gradient(180deg, #1d2939 0%, #111827 100%);
+        }
+
+        .brand-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 44px;
         }
 
         .brand-mark {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 72px;
-            font-weight: 800;
-            letter-spacing: 0.02em;
-        }
-
-        .brand-icon {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             display: grid;
             place-items: center;
-            border-radius: 12px;
+            border-radius: 10px;
             background: var(--brand);
-            box-shadow: 0 12px 28px rgba(241, 90, 43, 0.36);
         }
 
-        .brand-panel h1 {
-            max-width: 500px;
-            margin: 0 0 18px;
-            font-size: 42px;
-            line-height: 1.08;
+        .brand-title {
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .brand-subtitle {
+            color: rgba(255, 255, 255, 0.62);
+            font-size: 12px;
+        }
+
+        .system-panel h1 {
+            margin: 0 0 12px;
+            font-size: 30px;
+            line-height: 1.15;
             font-weight: 800;
             letter-spacing: 0;
         }
 
-        .brand-panel p {
-            max-width: 520px;
+        .system-panel p {
             margin: 0;
-            color: rgba(255, 255, 255, 0.78);
-            line-height: 1.7;
-        }
-
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
-            margin-top: 52px;
-        }
-
-        .metric {
-            padding: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(8px);
-        }
-
-        .metric strong {
-            display: block;
-            margin-bottom: 4px;
-            font-size: 22px;
-        }
-
-        .metric span {
             color: rgba(255, 255, 255, 0.72);
+            line-height: 1.65;
+        }
+
+        .module-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 34px;
+        }
+
+        .module-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.84);
             font-size: 13px;
         }
 
-        .form-panel {
-            padding: 42px 48px;
-            background: linear-gradient(180deg, #fff 0%, #fbfcfe 100%);
+        .module-item i {
+            width: 18px;
+            color: #ffb088;
+            text-align: center;
         }
 
-        .login-header {
+        .login-panel {
+            padding: 36px 42px;
+        }
+
+        .login-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 18px;
+            gap: 16px;
             margin-bottom: 24px;
         }
 
-        .login-header h2 {
-            margin: 0 0 8px;
-            font-size: 30px;
+        .login-top h2 {
+            margin: 0 0 6px;
+            font-size: 26px;
             font-weight: 800;
             letter-spacing: 0;
         }
 
-        .login-header p {
+        .login-top p {
             margin: 0;
             color: var(--muted);
+            font-size: 14px;
         }
 
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 8px 11px;
-            border: 1px solid #c7f0d8;
+        .environment-badge {
+            padding: 7px 10px;
+            border: 1px solid #bbf7d0;
             border-radius: 999px;
             color: #067647;
-            background: #ecfdf3;
+            background: #f0fdf4;
             font-size: 12px;
             font-weight: 700;
             white-space: nowrap;
@@ -163,104 +155,113 @@
         .role-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 10px;
-            margin-bottom: 22px;
+            gap: 8px;
+        }
+
+        .role-option,
+        .credential-btn {
+            border: 1px solid var(--line);
+            background: #fff;
+            text-align: left;
+            cursor: pointer;
+            transition: border-color .16s ease, background .16s ease, box-shadow .16s ease;
         }
 
         .role-option {
-            min-height: 88px;
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            padding: 12px 10px;
-            text-align: left;
-            cursor: pointer;
-            background: #fff;
-            transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+            min-height: 74px;
+            padding: 10px;
+            border-radius: 10px;
         }
 
         .role-option:hover,
-        .role-option.selected {
+        .role-option.selected,
+        .credential-btn:hover {
             border-color: var(--brand);
-            box-shadow: 0 10px 28px rgba(241, 90, 43, 0.14);
-            transform: translateY(-1px);
+            background: var(--brand-soft);
         }
 
         .role-option.selected {
-            background: #fff7f3;
+            box-shadow: 0 0 0 2px rgba(240, 90, 34, .12);
         }
 
         .role-option i {
             color: var(--brand);
-            font-size: 18px;
-            margin-bottom: 8px;
+            font-size: 16px;
+            margin-bottom: 6px;
         }
 
         .role-name {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 800;
         }
 
         .role-desc {
-            margin-top: 2px;
             color: var(--muted);
             font-size: 11px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .form-label {
+            margin-bottom: 6px;
+            font-size: 13px;
             font-weight: 700;
-            color: #263244;
         }
 
         .input-group-text,
         .form-control {
-            min-height: 50px;
+            min-height: 46px;
             border-color: var(--line);
         }
 
         .input-group-text {
-            width: 50px;
+            width: 46px;
             justify-content: center;
+            background: #f8fafc;
             color: var(--muted);
-            background: var(--soft);
         }
 
         .form-control:focus {
             border-color: var(--brand);
-            box-shadow: 0 0 0 0.2rem rgba(241, 90, 43, 0.13);
+            box-shadow: 0 0 0 .2rem rgba(240, 90, 34, .12);
         }
 
         .btn-login {
-            min-height: 52px;
+            min-height: 48px;
             border: 0;
-            border-radius: 12px;
+            border-radius: 9px;
+            background: var(--brand);
             color: #fff;
-            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
             font-weight: 800;
-            box-shadow: 0 14px 28px rgba(241, 90, 43, 0.24);
+        }
+
+        .btn-login:hover {
+            background: #d94d1b;
+            color: #fff;
         }
 
         .credential-panel {
-            margin-top: 24px;
-            padding: 16px;
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            background: #fff;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
         }
 
-        .credential-header {
+        .credential-heading {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 12px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
-        .credential-header h6 {
+        .credential-heading h3 {
             margin: 0;
+            font-size: 14px;
             font-weight: 800;
         }
 
-        .credential-header span {
+        .credential-heading span {
             color: var(--muted);
             font-size: 12px;
         }
@@ -268,22 +269,12 @@
         .credential-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
+            gap: 8px;
         }
 
         .credential-btn {
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 11px 12px;
-            text-align: left;
-            color: var(--ink);
-            background: var(--soft);
-            transition: border-color 0.18s ease, background 0.18s ease;
-        }
-
-        .credential-btn:hover {
-            border-color: var(--brand);
-            background: #fff7f3;
+            padding: 10px 12px;
+            border-radius: 9px;
         }
 
         .credential-btn strong,
@@ -292,58 +283,34 @@
         }
 
         .credential-btn strong {
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .credential-btn span {
-            margin-top: 3px;
+            margin-top: 2px;
             color: var(--muted);
             font-size: 12px;
         }
 
         .login-footer {
-            margin-top: 18px;
+            margin-top: 16px;
             color: var(--muted);
             font-size: 12px;
             text-align: center;
         }
 
-        @media (max-width: 980px) {
-            .login-card {
-                grid-template-columns: 1fr;
-            }
-
-            .brand-panel {
-                display: none;
-            }
+        @media (max-width: 960px) {
+            .login-frame { grid-template-columns: 1fr; }
+            .system-panel { display: none; }
         }
 
-        @media (max-width: 620px) {
-            .login-shell {
-                padding: 0;
-            }
-
-            .login-card {
-                min-height: 100vh;
-                border-radius: 0;
-            }
-
-            .form-panel {
-                padding: 28px 18px;
-            }
-
-            .login-header {
-                display: block;
-            }
-
-            .status-pill {
-                margin-top: 14px;
-            }
-
-            .role-grid,
-            .credential-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
+        @media (max-width: 640px) {
+            .login-shell { padding: 0; }
+            .login-frame { min-height: 100vh; border-radius: 0; }
+            .login-panel { padding: 26px 18px; }
+            .login-top { display: block; }
+            .environment-badge { display: inline-flex; margin-top: 12px; }
+            .role-grid, .credential-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
     </style>
 </head>
@@ -352,51 +319,43 @@
     $credentials = [
         ['role' => 'super_admin', 'label' => 'Super Admin', 'desc' => 'Full access', 'icon' => 'fa-crown', 'username' => 'admin', 'password' => 'Admin@2026'],
         ['role' => 'purchase', 'label' => 'Purchase', 'desc' => 'Procurement', 'icon' => 'fa-cart-shopping', 'username' => 'purchase', 'password' => 'Purchase@2026'],
-        ['role' => 'sales', 'label' => 'Sales', 'desc' => 'Orders and dispatch', 'icon' => 'fa-chart-line', 'username' => 'sales', 'password' => 'Sales@2026'],
-        ['role' => 'production', 'label' => 'Production', 'desc' => 'Manufacturing', 'icon' => 'fa-gears', 'username' => 'production', 'password' => 'Production@2026'],
-        ['role' => 'finance', 'label' => 'Finance', 'desc' => 'Accounting', 'icon' => 'fa-file-invoice-dollar', 'username' => 'finance', 'password' => 'Finance@2026'],
+        ['role' => 'sales', 'label' => 'Sales', 'desc' => 'Orders', 'icon' => 'fa-chart-line', 'username' => 'sales', 'password' => 'Sales@2026'],
+        ['role' => 'production', 'label' => 'Production', 'desc' => 'Shop floor', 'icon' => 'fa-gears', 'username' => 'production', 'password' => 'Production@2026'],
+        ['role' => 'finance', 'label' => 'Finance', 'desc' => 'Accounts', 'icon' => 'fa-file-invoice-dollar', 'username' => 'finance', 'password' => 'Finance@2026'],
         ['role' => 'gate_entry', 'label' => 'Gate Entry', 'desc' => 'Logistics', 'icon' => 'fa-truck-ramp-box', 'username' => 'gate_entry', 'password' => 'Gate@2026'],
-        ['role' => 'hrm', 'label' => 'HRM', 'desc' => 'People ops', 'icon' => 'fa-users', 'username' => 'hrm', 'password' => 'Hrm@2026'],
+        ['role' => 'hrm', 'label' => 'HRM', 'desc' => 'People', 'icon' => 'fa-users', 'username' => 'hrm', 'password' => 'Hrm@2026'],
         ['role' => 'reception', 'label' => 'Reception', 'desc' => 'Front desk', 'icon' => 'fa-id-card', 'username' => 'reception', 'password' => 'Reception@2026'],
     ];
 ?>
     <main class="login-shell">
-        <section class="login-card">
-            <aside class="brand-panel">
-                <div class="brand-mark">
-                    <span class="brand-icon"><i class="fas fa-industry"></i></span>
-                    <span>PRODX ERP</span>
+        <section class="login-frame">
+            <aside class="system-panel">
+                <div class="brand-row">
+                    <div class="brand-mark"><i class="fas fa-industry"></i></div>
+                    <div>
+                        <div class="brand-title">PRODX ERP</div>
+                        <div class="brand-subtitle">Manufacturing operations suite</div>
+                    </div>
                 </div>
-                <h1>Manufacturing operations, finance, and teams in one control center.</h1>
-                <p>Track procurement, production, inventory, sales, HR, accounting, and reporting from a single role-aware ERP workspace.</p>
 
-                <div class="metric-grid">
-                    <div class="metric">
-                        <strong>8</strong>
-                        <span>Core business modules</span>
-                    </div>
-                    <div class="metric">
-                        <strong>24/7</strong>
-                        <span>Plant-ready access</span>
-                    </div>
-                    <div class="metric">
-                        <strong>Live</strong>
-                        <span>Inventory and sales views</span>
-                    </div>
-                    <div class="metric">
-                        <strong>Secure</strong>
-                        <span>Role based sign in</span>
-                    </div>
+                <h1>Secure access for your factory operations.</h1>
+                <p>Manage procurement, inventory, production, sales, finance, HR, and reporting from one role-based workspace.</p>
+
+                <div class="module-list">
+                    <div class="module-item"><i class="fas fa-boxes-stacked"></i> Inventory and warehouse control</div>
+                    <div class="module-item"><i class="fas fa-cart-shopping"></i> Purchase bills, orders, and vendors</div>
+                    <div class="module-item"><i class="fas fa-gears"></i> Production planning and job tracking</div>
+                    <div class="module-item"><i class="fas fa-chart-column"></i> Operational reports and analytics</div>
                 </div>
             </aside>
 
-            <section class="form-panel">
-                <div class="login-header">
+            <section class="login-panel">
+                <div class="login-top">
                     <div>
-                        <h2>Sign in</h2>
-                        <p>Use a role below or enter your assigned ERP credentials.</p>
+                        <h2>Sign in to PRODX</h2>
+                        <p>Select a role to auto-fill the login fields.</p>
                     </div>
-                    <div class="status-pill"><i class="fas fa-circle-check"></i> ERP Online</div>
+                    <div class="environment-badge"><i class="fas fa-circle-check me-1"></i> Online</div>
                 </div>
 
                 <?php if (session()->getFlashdata('error')): ?>
@@ -459,7 +418,7 @@
                             <input class="form-check-input" type="checkbox" id="remember" name="remember">
                             <label class="form-check-label" for="remember">Remember me</label>
                         </div>
-                        <small class="text-muted">PRODX Manufacturing ERP</small>
+                        <small class="text-muted">Role based access</small>
                     </div>
 
                     <button type="submit" class="btn btn-login w-100">
@@ -468,9 +427,9 @@
                 </form>
 
                 <div class="credential-panel">
-                    <div class="credential-header">
-                        <h6><i class="fas fa-key me-2"></i>Quick Login Credentials</h6>
-                        <span>Click any account to fill the form</span>
+                    <div class="credential-heading">
+                        <h3><i class="fas fa-key me-2"></i>Quick credentials</h3>
+                        <span>Click to fill</span>
                     </div>
                     <div class="credential-grid">
                         <?php foreach ($credentials as $credential): ?>

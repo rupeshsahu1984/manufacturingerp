@@ -62,12 +62,12 @@
         <!-- Filters -->
         <div class="filters-section">
             <form data-validate method="GET" action="<?= base_url('purchase-bill') ?>">
-                <div class="filter-row">
-                    <div>
+                <div class="filter-row align-items-end">
+                    <div class="filter-field">
                         <label class="form-label">Search</label>
-                        <input type="text" name="search" class="search-input" class="form-control" placeholder="Search bills..." value="<?= isset($filters['search']) ? $filters['search'] : '' ?>">
+                        <input type="text" name="search" class="form-control" placeholder="Search bills..." value="<?= isset($filters['search']) ? esc($filters['search']) : '' ?>">
                     </div>
-                    <div>
+                    <div class="filter-field">
                         <label class="form-label">Supplier</label>
                         <select name="supplier_id" class="form-control">
                             <option value="">All Suppliers</option>
@@ -76,7 +76,7 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div>
+                    <div class="filter-field">
                         <label class="form-label">Status</label>
                         <select name="status" class="form-control">
                             <option value="">All Status</option>
@@ -86,17 +86,16 @@
                             <option value="overdue" <?= (isset($filters['status']) ? $filters['status'] : '') === 'overdue' ? 'selected' : '' ?>>Overdue</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="filter-field">
                         <label class="form-label">Date From</label>
                         <input type="date" name="date_from" class="form-control" value="<?= isset($filters['date_from']) ? $filters['date_from'] : '' ?>">
                     </div>
-                    <div>
+                    <div class="filter-field">
                         <label class="form-label">Date To</label>
                         <input type="date" name="date_to" class="form-control" value="<?= isset($filters['date_to']) ? $filters['date_to'] : '' ?>">
                     </div>
-                    <div>
-                        <label class="form-label">&nbsp;</label>
-                        <div class="d-flex gap-2">
+                    <div class="filter-actions">
+                        <div class="d-flex gap-2 justify-content-end">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-search me-2"></i>Filter
                             </button>

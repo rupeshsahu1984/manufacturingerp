@@ -775,7 +775,7 @@ body.sidebar-collapsed .main-content { margin-left: 64px !important; width: calc
     flex: 1;
     margin-top: 65px;
     transition: margin-left var(--transition-slow);
-    width: calc(100% - 240px);
+    width: calc(100% - 260px);
     background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
 }
 
@@ -948,9 +948,25 @@ body.sidebar-collapsed .main-content { margin-left: 64px !important; width: calc
 
 .filter-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
     align-items: end;
+}
+
+.filter-field,
+.filter-actions {
+    min-width: 0;
+}
+
+.filter-field .form-control,
+.filter-field .form-select {
+    width: 100%;
+}
+
+.filter-actions {
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
 }
 
 .form-group {
