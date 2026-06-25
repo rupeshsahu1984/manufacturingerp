@@ -321,7 +321,12 @@ class ProductController extends BaseController
             return redirect()->to('product')->with('error', 'Material not found!');
         }
 
-        $performance = $this->productModel->getProductPerformance($id);
+        try {
+            $performance = $this->productModel->getProductPerformance($id);
+        } catch (\Throwable $e) {
+            log_message('error', 'ProductController::performanceReport: ' . $e->getMessage());
+            $performance = [];
+        }
 
         $data = [
             'title' => 'Material Performance Report - PRODX',

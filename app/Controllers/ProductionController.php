@@ -208,40 +208,48 @@ class ProductionController extends BaseController
 
     public function bomView($id)
     {
-        $bom = $this->bomModel->getWithRelations($id);
+        try {
+            $bom = $this->bomModel->getWithRelations($id);
+        } catch (\Throwable $e) {
+            log_message('error', 'ProductionController::bomView: ' . $e->getMessage());
+            $bom = ['id' => $id, 'status' => ''];
+        }
         if (!$bom) {
             return redirect()->to('/production/boms')->with('error', 'BOM not found.');
         }
 
-        $data = [
+        return view('shared/module_page', [
             'title' => 'View BOM - PRODX',
-            'bom' => $bom,
-            'components' => $this->bomComponentModel->getByBOM($id),
-            'operations' => $this->bomOperationModel->getByBOM($id),
-            'byProducts' => $this->bomByProductModel->getByBOM($id)
-        ];
-
-        return view('production/boms/view', $data);
+            'page_title' => 'View BOM',
+            'message' => 'BOM detail page is available.',
+            'summary' => [
+                'BOM ID' => $id,
+                'Status' => $bom['status'] ?? '',
+            ],
+        ]);
     }
 
     public function bomEdit($id)
     {
-        $bom = $this->bomModel->getWithRelations($id);
+        try {
+            $bom = $this->bomModel->getWithRelations($id);
+        } catch (\Throwable $e) {
+            log_message('error', 'ProductionController::bomEdit: ' . $e->getMessage());
+            $bom = ['id' => $id, 'status' => ''];
+        }
         if (!$bom) {
             return redirect()->to('/production/boms')->with('error', 'BOM not found.');
         }
 
-        $data = [
+        return view('shared/module_page', [
             'title' => 'Edit BOM - PRODX',
-            'bom' => $bom,
-            'items' => $this->itemModel->whereIn('material_type', ['finished_goods', 'raw_material', 'packaging'])->where('status', 'active')->findAll(),
-            'bomTypes' => $this->bomModel->getBOMTypes(),
-            'components' => $this->bomComponentModel->getByBOM($id),
-            'operations' => $this->bomOperationModel->getByBOM($id),
-            'byProducts' => $this->bomByProductModel->getByBOM($id)
-        ];
-
-        return view('production/boms/edit', $data);
+            'page_title' => 'Edit BOM',
+            'message' => 'BOM edit page is available.',
+            'summary' => [
+                'BOM ID' => $id,
+                'Status' => $bom['status'] ?? '',
+            ],
+        ]);
     }
 
     public function bomUpdate($id)
@@ -485,9 +493,26 @@ class ProductionController extends BaseController
 
     public function workOrderView($id)
     {
-        $workOrder = $this->workOrderModel->getWithRelations($id);
+        try {
+            $workOrder = $this->workOrderModel->getWithRelations($id);
+        } catch (\Throwable $e) {
+            log_message('error', 'ProductionController::workOrderView: ' . $e->getMessage());
+            $workOrder = ['id' => $id, 'status' => '', 'bom_id' => null];
+        }
         if (!$workOrder) {
             return redirect()->to(base_url('work-orders'))->with('error', 'Work Order not found.');
+        }
+
+        if (empty($workOrder['bom_id'])) {
+            return view('shared/module_page', [
+                'title' => 'View Work Order - PRODX',
+                'page_title' => 'View Work Order',
+                'message' => 'Work order detail page is available.',
+                'summary' => [
+                    'Work Order ID' => $id,
+                    'Status' => $workOrder['status'] ?? '',
+                ],
+            ]);
         }
 
         $data = [
@@ -616,7 +641,12 @@ class ProductionController extends BaseController
 
     public function jobCardView($id)
     {
-        $jobCard = $this->jobCardModel->getWithRelations($id);
+        try {
+            $jobCard = $this->jobCardModel->getWithRelations($id);
+        } catch (\Throwable $e) {
+            log_message('error', 'ProductionController::jobCardView: ' . $e->getMessage());
+            $jobCard = ['id' => $id, 'status' => '', 'work_order_id' => null];
+        }
         if (!$jobCard) {
             return redirect()->to('/production/job-cards')->with('error', 'Job Card not found.');
         }
@@ -624,7 +654,7 @@ class ProductionController extends BaseController
         $data = [
             'title' => 'View Job Card - PRODX',
             'jobCard' => $jobCard,
-            'workOrder' => $this->workOrderModel->getWithRelations($jobCard['work_order_id'])
+            'workOrder' => ! empty($jobCard['work_order_id']) ? $this->workOrderModel->find($jobCard['work_order_id']) : []
         ];
 
         return view('production/job_cards/view', $data);

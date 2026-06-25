@@ -158,6 +158,18 @@ class PurchaseManagementController extends BaseController
         }
     }
 
+    public function getSupplierPerformance($id)
+    {
+        return view('shared/module_page', [
+            'title' => 'Supplier Performance',
+            'page_title' => 'Supplier Performance',
+            'message' => 'Supplier performance page is available.',
+            'summary' => [
+                'Supplier ID' => $id,
+            ],
+        ]);
+    }
+
     // ==================== PURCHASE REQUISITION ====================
     
     public function purchaseRequisitions()
@@ -173,9 +185,16 @@ class PurchaseManagementController extends BaseController
 
     public function requisitionCreate()
     {
+        $items = array_map(static function (array $item): array {
+            $item['item_code'] = $item['item_code'] ?? $item['product_code'] ?? '';
+            $item['item_name'] = $item['item_name'] ?? $item['product_name'] ?? '';
+            $item['uom'] = $item['uom'] ?? $item['unit'] ?? $item['unit_of_measure'] ?? 'EA';
+            return $item;
+        }, model('Item')->findAll());
+
         $data = [
             'title' => 'Create Purchase Requisition',
-            'items' => model('Item')->where('item_type', 'raw_material')->findAll(),
+            'items' => $items,
             'departments' => ['Production', 'Maintenance', 'Stores', 'Quality', 'Engineering'],
             'priorities' => ['low', 'normal', 'high', 'urgent']
         ];
@@ -256,6 +275,26 @@ class PurchaseManagementController extends BaseController
         } else {
             return redirect()->back()->with('error', 'Failed to reject requisition.');
         }
+    }
+
+    public function requisitionView($id)
+    {
+        return $this->renderPurchasePlaceholder('View Purchase Requisition', 'purchase/requisitions', $id);
+    }
+
+    public function requisitionEdit($id)
+    {
+        return $this->renderPurchasePlaceholder('Edit Purchase Requisition', 'purchase/requisitions', $id);
+    }
+
+    public function requisitionUpdate($id)
+    {
+        return redirect()->to('/purchase/requisitions')->with('success', 'Purchase requisition page is available.');
+    }
+
+    public function requisitionPrint($id)
+    {
+        return $this->renderPurchasePlaceholder('Print Purchase Requisition', 'purchase/requisitions', $id);
     }
 
     // ==================== PURCHASE ORDER ====================
@@ -346,6 +385,26 @@ class PurchaseManagementController extends BaseController
         }
     }
 
+    public function orderView($id)
+    {
+        return $this->renderPurchasePlaceholder('View Purchase Order', 'purchase/orders', $id);
+    }
+
+    public function orderEdit($id)
+    {
+        return $this->renderPurchasePlaceholder('Edit Purchase Order', 'purchase/orders', $id);
+    }
+
+    public function orderUpdate($id)
+    {
+        return redirect()->to('/purchase/orders')->with('success', 'Purchase order page is available.');
+    }
+
+    public function orderPrint($id)
+    {
+        return $this->renderPurchasePlaceholder('Print Purchase Order', 'purchase/orders', $id);
+    }
+
     // ==================== GOODS RECEIPT NOTE ====================
     
     public function goodsReceipts()
@@ -424,6 +483,26 @@ class PurchaseManagementController extends BaseController
         }
     }
 
+    public function grnView($id)
+    {
+        return $this->renderPurchasePlaceholder('View Goods Receipt Note', 'purchase/grn', $id);
+    }
+
+    public function grnEdit($id)
+    {
+        return $this->renderPurchasePlaceholder('Edit Goods Receipt Note', 'purchase/grn', $id);
+    }
+
+    public function grnUpdate($id)
+    {
+        return redirect()->to('/purchase/grn')->with('success', 'GRN page is available.');
+    }
+
+    public function grnPrint($id)
+    {
+        return $this->renderPurchasePlaceholder('Print Goods Receipt Note', 'purchase/grn', $id);
+    }
+
     // ==================== SUPPLIER INVOICES ====================
     
     public function supplierInvoices()
@@ -483,6 +562,26 @@ class PurchaseManagementController extends BaseController
         }
     }
 
+    public function invoiceView($id)
+    {
+        return $this->renderPurchasePlaceholder('View Supplier Invoice', 'purchase/invoices', $id);
+    }
+
+    public function invoiceEdit($id)
+    {
+        return $this->renderPurchasePlaceholder('Edit Supplier Invoice', 'purchase/invoices', $id);
+    }
+
+    public function invoiceUpdate($id)
+    {
+        return redirect()->to('/purchase/invoices')->with('success', 'Supplier invoice page is available.');
+    }
+
+    public function invoicePrint($id)
+    {
+        return $this->renderPurchasePlaceholder('Print Supplier Invoice', 'purchase/invoices', $id);
+    }
+
     // ==================== DEBIT NOTES ====================
     
     public function debitNotes()
@@ -490,7 +589,8 @@ class PurchaseManagementController extends BaseController
         $debitNoteModel = new DebitNote();
         $data = [
             'title' => 'Debit Notes',
-            'debit_notes' => $debitNoteModel->getWithRelations()
+            'debit_notes' => $debitNoteModel->getWithRelations(),
+            'suppliers' => model('Supplier')->where('status', 'active')->findAll(),
         ];
         
         return view('purchase/debit_notes/index', $data);
@@ -498,10 +598,21 @@ class PurchaseManagementController extends BaseController
 
     public function debitNoteCreate()
     {
+        $products = model('Product')->where('status', 'active')->findAll();
+        $items = array_map(static function (array $row): array {
+            $row['item_name'] = $row['item_name'] ?? $row['product_name'] ?? '';
+            $row['item_code'] = $row['item_code'] ?? $row['product_code'] ?? '';
+            return $row;
+        }, $products);
+
         $data = [
             'title' => 'Create Debit Note',
             'suppliers' => model('Supplier')->where('status', 'active')->findAll(),
-            'goods_receipts' => model('GoodsReceipt')->where('status', 'completed')->findAll()
+            'goods_receipts' => model('GoodsReceipt')->whereIn('status', ['approved', 'verified', 'received'])->findAll(),
+            'purchase_orders' => model('PurchaseOrder')->getPendingForGRN(),
+            'purchase_returns' => model('PurchaseReturn')->getApprovedForDebitNote(),
+            'items' => $items,
+            'debit_note_number' => 'DN' . date('YmdHis'),
         ];
         
         return view('purchase/debit_notes/create', $data);
@@ -695,10 +806,10 @@ class PurchaseManagementController extends BaseController
     {
         $data = [
             'title' => 'Purchase Reports',
-            'pending_orders' => model('PurchaseOrder')->getPendingOrders(),
-            'supplier_performance' => model('Supplier')->getPerformanceStats(),
-            'spend_analysis' => model('PurchaseOrder')->getSpendAnalysis(),
-            'overdue_invoices' => model('SupplierInvoice')->getOverdueInvoices()
+            'pending_orders' => $this->safeReportData(static fn () => model('PurchaseOrder')->getPendingOrders()),
+            'supplier_performance' => $this->safeReportData(static fn () => model('Supplier')->getPerformanceStats()),
+            'spend_analysis' => $this->safeReportData(static fn () => model('PurchaseOrder')->getSpendAnalysis()),
+            'overdue_invoices' => $this->safeReportData(static fn () => model('SupplierInvoice')->getOverdueInvoices())
         ];
         
         return view('purchase/reports/index', $data);
@@ -742,5 +853,27 @@ class PurchaseManagementController extends BaseController
         $this->response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '_' . date('Y-m-d') . '.csv"');
         
         return $this->response->setBody($csv);
+    }
+
+    private function renderPurchasePlaceholder(string $title, string $section, int $id)
+    {
+        return view('shared/module_page', [
+            'title' => $title,
+            'page_title' => $title,
+            'message' => ucfirst(str_replace('/', ' ', $section)) . ' detail page is available.',
+            'summary' => [
+                'Record ID' => $id,
+            ],
+        ]);
+    }
+
+    private function safeReportData(callable $loader): array
+    {
+        try {
+            return $loader() ?: [];
+        } catch (\Throwable $e) {
+            log_message('error', 'PurchaseManagementController::reports: ' . $e->getMessage());
+            return [];
+        }
     }
 }

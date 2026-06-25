@@ -220,6 +220,28 @@ class PurchaseOrder extends Model
             ->findAll();
     }
 
+    public function getPendingOrders()
+    {
+        return $this->getPurchaseOrdersByStatus('pending');
+    }
+
+    public function getApprovedForInvoice()
+    {
+        return $this->select('purchase_orders.*, suppliers.supplier_name')
+            ->join('suppliers', 'suppliers.id = purchase_orders.supplier_id', 'left')
+            ->whereIn('purchase_orders.status', ['approved', 'ordered', 'received'])
+            ->orderBy('purchase_orders.order_date', 'DESC')
+            ->findAll();
+    }
+
+    public function getSpendAnalysis()
+    {
+        return [
+            'total_spend' => $this->selectSum('total_amount')->first()['total_amount'] ?? 0,
+            'order_count' => $this->countAllResults(),
+        ];
+    }
+
     /**
      * Get overdue purchase orders
      */

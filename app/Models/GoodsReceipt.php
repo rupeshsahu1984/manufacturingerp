@@ -165,6 +165,13 @@ class GoodsReceipt extends Model
             ->findAll();
     }
 
+    public function getApprovedForInvoice()
+    {
+        return $this->whereIn('status', ['approved', 'verified', 'received'])
+            ->orderBy('receipt_date', 'DESC')
+            ->findAll();
+    }
+
     public function getBySupplier($supplierId, $filters = [])
     {
         $builder = $this->db->table('goods_receipt_notes gr');

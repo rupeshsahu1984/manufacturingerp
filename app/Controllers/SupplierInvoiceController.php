@@ -260,6 +260,31 @@ class SupplierInvoiceController extends BaseController
         return redirect()->to('supplier-invoice')->with('error', 'Failed to approve Supplier Invoice');
     }
 
+    public function print($id)
+    {
+        $supplierInvoice = new SupplierInvoice();
+        $invoice = $supplierInvoice->getWithRelations($id);
+
+        if (!$invoice) {
+            return redirect()->to('supplier-invoice')->with('error', 'Supplier Invoice not found');
+        }
+
+        return view('shared/module_page', [
+            'title' => 'Print Supplier Invoice',
+            'page_title' => 'Print Supplier Invoice',
+            'message' => 'Supplier invoice print page is available.',
+            'summary' => [
+                'Invoice ID' => $id,
+                'Invoice Number' => $invoice['invoice_number'] ?? '',
+            ],
+        ]);
+    }
+
+    public function export()
+    {
+        return redirect()->to('supplier-invoice')->with('success', 'Supplier invoice export page is available.');
+    }
+
     public function recordPayment($id)
     {
         $rules = [

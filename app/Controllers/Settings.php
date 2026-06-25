@@ -156,9 +156,16 @@ class Settings extends BaseController
             return redirect()->to('dashboard')->with('error', 'Access denied. Super admin privileges required.');
         }
 
+        try {
+            $company = $this->companyModel->getCompanyProfile();
+        } catch (\Throwable $e) {
+            log_message('error', 'Settings::companySettings: ' . $e->getMessage());
+            $company = [];
+        }
+
         $data = [
             'title' => 'Company Settings',
-            'company' => $this->companyModel->getCompanyProfile(),
+            'company' => $company,
             'currencies' => $this->companyModel->getAvailableCurrencies(),
             'timezones' => $this->companyModel->getAvailableTimezones(),
             'dateFormats' => $this->companyModel->getAvailableDateFormats(),
@@ -212,9 +219,16 @@ class Settings extends BaseController
             return redirect()->to('dashboard')->with('error', 'Access denied. Super admin privileges required.');
         }
 
+        try {
+            $departments = $this->departmentModel->getAllDepartmentsWithModules();
+        } catch (\Throwable $e) {
+            log_message('error', 'Settings::departments modules: ' . $e->getMessage());
+            $departments = $this->departmentModel->findAll();
+        }
+
         $data = [
             'title' => 'Department Management',
-            'departments' => $this->departmentModel->getAllDepartmentsWithModules(),
+            'departments' => $departments,
             'stats' => $this->departmentModel->getDepartmentStats()
         ];
 

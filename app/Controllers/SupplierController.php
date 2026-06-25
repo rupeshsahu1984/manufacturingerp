@@ -119,7 +119,31 @@ class SupplierController extends BaseController
 
         $data = [
             'title' => 'View Supplier - PRODX',
-            'supplier' => $supplier,
+            'supplier' => array_merge([
+                'supplier_code' => '',
+                'supplier_name' => '',
+                'contact_person' => '',
+                'email' => '',
+                'phone' => '',
+                'address' => '',
+                'city' => '',
+                'state' => '',
+                'country' => '',
+                'pincode' => '',
+                'website' => '',
+                'gst_number' => '',
+                'pan_number' => '',
+                'bank_name' => '',
+                'bank_account' => '',
+                'bank_ifsc' => '',
+                'payment_terms' => '',
+                'credit_limit' => 0,
+                'supplier_category' => '',
+                'return_policy' => '',
+                'credit_terms' => '',
+                'status' => 'active',
+                'created_at' => '',
+            ], $supplier),
             'performance' => $this->supplierModel->getSupplierPerformance($id)
         ];
 

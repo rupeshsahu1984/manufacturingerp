@@ -309,6 +309,11 @@ class Warehouse extends Model
         return $this->getActiveWarehouses();
     }
 
+    public function getWarehouseWithDetails($id)
+    {
+        return $this->find($id);
+    }
+
     /**
      * Export warehouses to CSV
      */

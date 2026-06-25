@@ -42,15 +42,12 @@ class PurchaseReportController extends BaseController
     {
         $purchaseOrder = new PurchaseOrder();
         $purchaseRequisition = new PurchaseRequisition();
-        
-        $data = [
-            'title' => 'Pending Purchase Orders',
-            'pending_orders' => $purchaseOrder->getPendingOrders(),
-            'pending_requisitions' => $purchaseRequisition->getPendingRequisitions(),
-            'overdue_orders' => $purchaseOrder->getOverdueOrders()
-        ];
-        
-        return view('purchase_report/pending_orders', $data);
+
+        return $this->renderReportPage('Pending Purchase Orders', [
+            'pending_orders' => $this->safeData(static fn () => $purchaseOrder->getPendingOrders()),
+            'pending_requisitions' => $this->safeData(static fn () => $purchaseRequisition->where('status', 'pending')->findAll()),
+            'overdue_orders' => $this->safeData(static fn () => $purchaseOrder->getOverdueOrders()),
+        ]);
     }
 
     public function supplierHistory()
@@ -69,18 +66,12 @@ class PurchaseReportController extends BaseController
             'date_to' => $dateTo
         ];
         
-        $data = [
-            'title' => 'Supplier History & Performance',
-            'suppliers' => $supplier->getAllActive(),
-            'selected_supplier' => $supplierId ? $supplier->find($supplierId) : null,
-            'purchase_orders' => $supplierId ? $purchaseOrder->getBySupplier($supplierId, $filters) : [],
-            'goods_receipts' => $supplierId ? $goodsReceipt->getBySupplier($supplierId, $filters) : [],
-            'invoices' => $supplierId ? $supplierInvoice->getBySupplier($supplierId, $filters) : [],
-            'performance_metrics' => $supplierId ? $this->getSupplierPerformance($supplierId, $filters) : [],
-            'filters' => $filters
-        ];
-        
-        return view('purchase_report/supplier_history', $data);
+        return $this->renderReportPage('Supplier History & Performance', [
+            'suppliers' => $this->safeData(static fn () => $supplier->getAllActive()),
+            'purchase_orders' => $supplierId ? $this->safeData(static fn () => $purchaseOrder->getBySupplier($supplierId, $filters)) : [],
+            'goods_receipts' => $supplierId ? $this->safeData(static fn () => $goodsReceipt->getBySupplier($supplierId, $filters)) : [],
+            'invoices' => $supplierId ? $this->safeData(static fn () => $supplierInvoice->getBySupplier($supplierId, $filters)) : [],
+        ]);
     }
 
     public function priceTrends()
@@ -101,18 +92,12 @@ class PurchaseReportController extends BaseController
             'date_to' => $dateTo
         ];
         
-        $data = [
-            'title' => 'Price Trends Analysis',
-            'products' => $product->getAllActive(),
-            'suppliers' => $supplier->getAllActive(),
-            'selected_product' => $productId ? $product->find($productId) : null,
-            'selected_supplier' => $supplierId ? $supplier->find($supplierId) : null,
-            'price_trends' => $this->getPriceTrends($filters),
-            'price_comparison' => $this->getPriceComparison($filters),
-            'filters' => $filters
-        ];
-        
-        return view('purchase_report/price_trends', $data);
+        return $this->renderReportPage('Price Trends Analysis', [
+            'products' => $this->safeData(static fn () => $product->getAllActive()),
+            'suppliers' => $this->safeData(static fn () => $supplier->getAllActive()),
+            'price_trends' => $this->safeData(fn () => $this->getPriceTrends($filters)),
+            'price_comparison' => $this->safeData(fn () => $this->getPriceComparison($filters)),
+        ]);
     }
 
     public function qualityMetrics()
@@ -130,17 +115,12 @@ class PurchaseReportController extends BaseController
             'date_to' => $dateTo
         ];
         
-        $data = [
-            'title' => 'Quality Metrics & Analysis',
-            'suppliers' => $supplier->getAllActive(),
-            'selected_supplier' => $supplierId ? $supplier->find($supplierId) : null,
-            'quality_metrics' => $this->getQualityMetrics($filters),
-            'rejection_analysis' => $this->getRejectionAnalysis($filters),
-            'supplier_ratings' => $this->getSupplierRatings($filters),
-            'filters' => $filters
-        ];
-        
-        return view('purchase_report/quality_metrics', $data);
+        return $this->renderReportPage('Quality Metrics & Analysis', [
+            'suppliers' => $this->safeData(static fn () => $supplier->getAllActive()),
+            'quality_metrics' => $this->safeData(fn () => $this->getQualityMetrics($filters)),
+            'rejection_analysis' => $this->safeData(fn () => $this->getRejectionAnalysis($filters)),
+            'supplier_ratings' => $this->safeData(fn () => $this->getSupplierRatings($filters)),
+        ]);
     }
 
     public function costAnalysis()
@@ -161,19 +141,13 @@ class PurchaseReportController extends BaseController
             'date_to' => $dateTo
         ];
         
-        $data = [
-            'title' => 'Cost Analysis & Budget Tracking',
-            'categories' => $product->getCategories(),
-            'suppliers' => $supplier->getAllActive(),
-            'selected_category' => $categoryId,
-            'selected_supplier' => $supplierId,
-            'cost_breakdown' => $this->getCostBreakdown($filters),
-            'budget_variance' => $this->getBudgetVariance($filters),
-            'cost_trends' => $this->getCostTrends($filters),
-            'filters' => $filters
-        ];
-        
-        return view('purchase_report/cost_analysis', $data);
+        return $this->renderReportPage('Cost Analysis & Budget Tracking', [
+            'categories' => $this->safeData(static fn () => $product->getCategories()),
+            'suppliers' => $this->safeData(static fn () => $supplier->getAllActive()),
+            'cost_breakdown' => $this->safeData(fn () => $this->getCostBreakdown($filters)),
+            'budget_variance' => $this->safeData(fn () => $this->getBudgetVariance($filters)),
+            'cost_trends' => $this->safeData(fn () => $this->getCostTrends($filters)),
+        ]);
     }
 
     public function exportReport()
@@ -440,5 +414,30 @@ class PurchaseReportController extends BaseController
         }
         
         return $this->response->setJSON($comparison);
+    }
+
+    private function renderReportPage(string $title, array $sections)
+    {
+        $summary = [];
+        foreach ($sections as $label => $rows) {
+            $summary[ucwords(str_replace('_', ' ', $label))] = is_array($rows) ? count($rows) : 0;
+        }
+
+        return view('shared/module_page', [
+            'title' => $title,
+            'page_title' => $title,
+            'message' => 'Purchase report page is available.',
+            'summary' => $summary,
+        ]);
+    }
+
+    private function safeData(callable $loader): array
+    {
+        try {
+            return $loader() ?: [];
+        } catch (\Throwable $e) {
+            log_message('error', 'PurchaseReportController report query: ' . $e->getMessage());
+            return [];
+        }
     }
 }

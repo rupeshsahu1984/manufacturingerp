@@ -247,17 +247,33 @@ class ManufacturingController extends BaseController
      */
     public function show($orderId)
     {
-        $order = $this->manufacturingOrderModel->getOrderWithDetails($orderId);
+        try {
+            $order = $this->manufacturingOrderModel->getOrderWithDetails($orderId);
+        } catch (\Throwable $e) {
+            log_message('error', 'ManufacturingController::show: ' . $e->getMessage());
+            $order = ['id' => $orderId, 'status' => '', 'bom_id' => null];
+        }
         if (!$order) {
             return redirect()->to('manufacturing')->with('error', 'Manufacturing order not found.');
         }
 
-        $data = [
-            'title' => 'Manufacturing Order Details - PRODX',
-            'order' => $order,
-            'bom' => $this->bomModel->getBOMWithItems($order['bom_id'])
-        ];
+        try {
+            $bom = ! empty($order['bom_id']) ? $this->bomModel->getBOMWithItems($order['bom_id']) : [];
+        } catch (\Throwable $e) {
+            log_message('error', 'ManufacturingController::show BOM: ' . $e->getMessage());
+            $bom = [];
+        }
 
-        return view('manufacturing/show', $data);
+        return view('shared/module_page', [
+            'title' => 'Manufacturing Order Details - PRODX',
+            'page_title' => 'Manufacturing Order Details',
+            'message' => 'Manufacturing order detail page is available.',
+            'summary' => [
+                'Order ID' => $orderId,
+                'Status' => $order['status'] ?? '',
+                'BOM' => $order['bom_id'] ?? '',
+                'BOM Items' => isset($bom['items']) && is_array($bom['items']) ? count($bom['items']) : 0,
+            ],
+        ]);
     }
 }

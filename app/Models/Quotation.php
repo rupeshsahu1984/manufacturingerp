@@ -74,6 +74,16 @@ class Quotation extends Model
         return $builder->get()->getResultArray();
     }
 
+    public function getQuotationWithDetails($id)
+    {
+        $quotation = $this->getQuotationsWithDetails($id);
+        if ($quotation) {
+            $quotation['items'] = model('QuotationItem')->where('quotation_id', $id)->findAll();
+        }
+
+        return $quotation;
+    }
+
     public function getQuotationStats()
     {
         return [
