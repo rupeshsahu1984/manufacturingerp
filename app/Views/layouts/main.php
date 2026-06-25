@@ -95,6 +95,67 @@
             margin-top: 0.25rem !important;
             line-height: 1.3 !important;
         }
+
+        /* Keep filter/search rows aligned across modules */
+        .filters-section .filter-row,
+        .content-card .card-body form .row {
+            align-items: end !important;
+            row-gap: 0.75rem !important;
+        }
+
+        .filters-section .filter-row > *,
+        .content-card .card-body form .row > [class*="col-"] {
+            min-width: 0 !important;
+        }
+
+        .filters-section .form-group,
+        .filters-section .filter-field,
+        .content-card .card-body form .row > [class*="col-"] {
+            margin-bottom: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-end !important;
+        }
+
+        .filters-section .form-control,
+        .filters-section .form-select,
+        .filters-section select,
+        .content-card .card-body form .row .form-control,
+        .content-card .card-body form .row .form-select,
+        .content-card .card-body form .row select {
+            width: 100% !important;
+            height: 42px !important;
+            min-height: 42px !important;
+            margin-bottom: 0 !important;
+        }
+
+        .filters-section .search-box {
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+
+        .filters-section .search-box .form-control {
+            padding-left: 2.25rem !important;
+        }
+
+        .filters-section .filter-actions,
+        .content-card .card-body form .row .d-grid,
+        .content-card .card-body form .row .d-flex {
+            min-height: 42px !important;
+            align-items: center !important;
+        }
+
+        .filters-section .btn,
+        .content-card .card-body form .row .btn {
+            height: 42px !important;
+            min-height: 42px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            white-space: nowrap !important;
+            margin-bottom: 0 !important;
+        }
         
         small {
             font-size: 12px !important;
