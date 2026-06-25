@@ -17,11 +17,17 @@
     },
     "autoload": {
         "psr-4": {
+            "Config\\": "app/Config/",
             "App\\": "app/"
-        }
+        },
+        "exclude-from-classmap": [
+            "app/Database/Migrations/",
+            "tests/_support/Database/Migrations/"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
+            "Tests\\Support\\": "tests/_support/",
             "Tests\\": "tests/"
         }
     },

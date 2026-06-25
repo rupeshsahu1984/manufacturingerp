@@ -1,9 +1,0 @@
-﻿
-Warning: Module "openssl" is already loaded in Unknown on line 0
---- Table: distributors ---
-
-Fatal error: Uncaught mysqli_sql_exception: Table 'manufacturingerp.distributors' doesn't exist in D:\xampp\htdocs\manufacturingerp\check_tables_v2.php:8
-Stack trace:
-#0 D:\xampp\htdocs\manufacturingerp\check_tables_v2.php(8): mysqli_query(Object(mysqli), 'DESCRIBE distri...')
-#1 {main}
-  thrown in D:\xampp\htdocs\manufacturingerp\check_tables_v2.php on line 8

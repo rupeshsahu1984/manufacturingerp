@@ -6,18 +6,19 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
-    public $baseURL = 'http://localhost/manufacturingerp/';
-    public $indexPage = '';
-    public $uriProtocol = 'REQUEST_URI';
-    public $defaultLocale = 'en';
-    public $negotiateLocale = false;
-    public $supportedLocales = ['en'];
-    public $appTimezone = 'Asia/Kolkata';
-    public $charset = 'UTF-8';
-    public $forceGlobalSecureRequests = false;
-    public $proxyIPs = [];
-    public $CSPEnabled = false;
-    public $allowedHostnames = [];
+    public string $baseURL = 'http://localhost/manufacturingerp/';
+    public array $allowedHostnames = [];
+    public string $indexPage = '';
+    public string $uriProtocol = 'REQUEST_URI';
+    public string $permittedURIChars = 'a-z 0-9~%.:_\-';
+    public string $defaultLocale = 'en';
+    public bool $negotiateLocale = false;
+    public array $supportedLocales = ['en'];
+    public string $appTimezone = 'Asia/Kolkata';
+    public string $charset = 'UTF-8';
+    public bool $forceGlobalSecureRequests = false;
+    public array $proxyIPs = [];
+    public bool $CSPEnabled = false;
     
     // Error reporting for development
     public $displayErrors = true;

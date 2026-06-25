@@ -16,7 +16,7 @@ class Auth extends Controller
 
     public function login()
     {
-        if ($this->request->getMethod() === 'post') {
+        if (strtolower($this->request->getMethod()) === 'post') {
             // The login form sends `username` and `password`
             $username = $this->request->getPost('username');
             $password = $this->request->getPost('password');

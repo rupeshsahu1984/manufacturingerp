@@ -40,7 +40,7 @@ class Installer extends Controller
             return redirect()->to('login');
         }
 
-        if ($this->request->getMethod() === 'post') {
+        if (strtolower($this->request->getMethod()) === 'post') {
             return $this->validateDatabase();
         }
 
@@ -78,7 +78,7 @@ class Installer extends Controller
             return redirect()->to('login');
         }
 
-        if ($this->request->getMethod() === 'post') {
+        if (strtolower($this->request->getMethod()) === 'post') {
             return $this->saveCompanySetup();
         }
 
@@ -100,7 +100,7 @@ class Installer extends Controller
             return redirect()->to('login');
         }
 
-        if ($this->request->getMethod() === 'post') {
+        if (strtolower($this->request->getMethod()) === 'post') {
             return $this->saveAdminSetup();
         }
 
